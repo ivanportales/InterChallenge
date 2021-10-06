@@ -23,7 +23,9 @@ class WebPhotoRepository: PhotosRepository {
             do {
                 if let data = response.data {
                     let models = try JSONDecoder().decode([Photo].self, from: data)
-                    completion(.success(models))
+                    DispatchQueue.main.async {
+                        completion(.success(models))
+                    }
                 }
             } catch {
                 completion(.failure(.serializationError))

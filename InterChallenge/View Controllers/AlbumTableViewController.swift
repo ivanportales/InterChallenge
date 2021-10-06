@@ -1,13 +1,15 @@
 import UIKit
 
 class AlbumTableViewController: UITableViewController {
+    weak var coordinator: PhotosListCoordinator?
     var user: User
     var repository: AlbumsRepository
     var albums = [Album]()
     
-    init(user: User, repository: AlbumsRepository) {
+    init(user: User, repository: AlbumsRepository, coordinator: PhotosListCoordinator) {
         self.repository = repository
         self.user = user
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -55,7 +57,6 @@ class AlbumTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let album = albums[indexPath.row]
-        let destinationVC = PhotoTableViewController(user: user, album: album, repository: WebPhotoRepository())
-        navigationController?.pushViewController(destinationVC, animated: true)
+        coordinator?.showPhotosIn(album: album, ofUser: user)
     }
 }

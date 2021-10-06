@@ -2,7 +2,6 @@ import Alamofire
 import UIKit
 
 class CommentTableViewController: UITableViewController {
-    
     let user: User
     let post: Post
     let repository: CommentRepository

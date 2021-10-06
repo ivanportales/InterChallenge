@@ -2,14 +2,15 @@ import Alamofire
 import UIKit
 
 class PhotoTableViewController: UITableViewController {
-    
+    weak var coordinator: PhotoCoordinator?
     var repository: PhotosRepository
     var user: User
     var album: Album
     var photos = [Photo]()
     
-    init(user: User, album: Album, repository: PhotosRepository) {
+    init(user: User, album: Album, repository: PhotosRepository, coordinator: PhotoCoordinator) {
         self.repository = repository
+        self.coordinator = coordinator
         self.album = album
         self.user = user
         super.init(nibName: nil, bundle: nil)
@@ -68,11 +69,13 @@ class PhotoTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let photo = photos[indexPath.row]
-        AF.download(photo.url).responseData { response in
+        AF.download(photo.url).responseData { [weak self] response in
             switch response.result {
             case .success(let data):
-                let destinationVC = DetailsViewController(image: UIImage(data: data)!, photo: photo)
-                self.navigationController?.pushViewController(destinationVC, animated: true)
+                guard let self = self else { return }
+                if let image = UIImage(data: data) {
+                    self.coordinator?.showDetailsOf(photo: photo, showingImage: image)
+                }
             default:
                 break
             }

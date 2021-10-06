@@ -1,12 +1,14 @@
 import Alamofire
 import UIKit
 
-class ChallengeViewController: UITableViewController {
+class UsersTableViewController: UITableViewController {
+    weak var coordinator: (AlbumCoordinator & PostCoordinator)?
     var repository: UsersRepository
     var users = [User]()
     
-    init(repository: UsersRepository) {
+    init(repository: UsersRepository, coordinator: (AlbumCoordinator & PostCoordinator)?) {
         self.repository = repository
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -54,14 +56,12 @@ class ChallengeViewController: UITableViewController {
     }
 }
 
-extension ChallengeViewController: UserTableViewCellDelegate {
+extension UsersTableViewController: UserTableViewCellDelegate {
     func didTapAlbums(with user: User) {
-        let destinationVC = AlbumTableViewController(user: user, repository: WebAlbumsRepository())
-        navigationController?.pushViewController(destinationVC, animated: true)
+        coordinator?.showAlbumsOf(user: user)
     }
     
     func didTapPosts(with user: User) {
-        let destinationVC = PostTableViewController(user: user, repository: WebPostsRepository())
-        navigationController?.pushViewController(destinationVC, animated: true)
+        coordinator?.showPostsOf(user: user)
     }
 }

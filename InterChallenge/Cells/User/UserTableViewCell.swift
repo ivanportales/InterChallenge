@@ -12,9 +12,9 @@ class UserTableViewCell: UITableViewCell {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
+    weak var delegate: UserTableViewCellDelegate?
     var user: User!
     var id: Int = 0
-    var delegate: UserTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -39,14 +39,14 @@ class UserTableViewCell: UITableViewCell {
     }
     
     @IBAction func albumsAction(_ sender: UIButton) {
-        if let user = user {
-            delegate?.didTapAlbums(with:user)
+        if let user = user, let delegate = delegate {
+            delegate.didTapAlbums(with:user)
         }
     }
     
     @IBAction func postsAction(_ sender: UIButton) {
-        if let user = user {
-            delegate?.didTapPosts(with: user)
+        if let user = user, let delegate = delegate {
+            delegate.didTapPosts(with: user)
         }
     }
 }

@@ -2,13 +2,15 @@ import Alamofire
 import UIKit
 
 class PostTableViewController: UITableViewController {
+    weak var coordinator: CommentCoordinator?
     let user: User
     let repository: PostRepository
     var posts = [Post]()
     
-    init(user: User, repository: PostRepository) {
+    init(user: User, repository: PostRepository, coordinator: CommentCoordinator) {
         self.repository = repository
         self.user = user
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -43,7 +45,6 @@ class PostTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TitleAndDescriptionCell", for: indexPath) as? TitleAndDescriptionTableViewCell else {
@@ -59,7 +60,6 @@ class PostTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let post = posts[indexPath.row]
-        let destinationVC = CommentTableViewController(user: user, post: post, repository: WebCommentRepository())
-        navigationController?.pushViewController(destinationVC, animated: true)
+        coordinator?.showCommentsIn(post: post, ofUser: user)
     }
 }
