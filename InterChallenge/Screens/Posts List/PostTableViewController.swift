@@ -1,12 +1,13 @@
+import Alamofire
 import UIKit
 
-class AlbumTableViewController: UITableViewController {
-    weak var coordinator: PhotosListCoordinator?
-    var user: User
-    var repository: AlbumsRepository
-    var albums = [Album]()
+class PostTableViewController: UITableViewController {
+    weak var coordinator: MainCoordinator?
+    let user: User
+    let repository: PostRepository
+    var posts = [Post]()
     
-    init(user: User, repository: AlbumsRepository, coordinator: PhotosListCoordinator) {
+    init(user: User, repository: PostRepository, coordinator: MainCoordinator) {
         self.repository = repository
         self.user = user
         self.coordinator = coordinator
@@ -19,13 +20,14 @@ class AlbumTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Álbuns de \(user.name)"
-        tableView.register(UINib(nibName: "AlbumTableViewCell", bundle: nil), forCellReuseIdentifier: "AlbumCell")
-        fillAlbums()
+        navigationItem.title = "Postagens de \(user.name)"
+        tableView.register(UINib(nibName: "TitleAndDescriptionTableViewCell", bundle: nil),
+                           forCellReuseIdentifier: "TitleAndDescriptionCell")
+        fillPosts()
     }
     
-    private func fillAlbums() {
-        repository.getAlbumsOf(userId: user.id) { result in
+    private func fillPosts() {
+        repository.getPostsFrom(userId: user.id) { result in
             switch result {
             case .failure(let error):
                 let alert = UIAlertController(title: "Erro", message: error.localizedDescription, preferredStyle: .alert)
@@ -33,30 +35,31 @@ class AlbumTableViewController: UITableViewController {
                     alert.dismiss(animated: true)
                 }))
                 self.present(alert, animated: true)
-            case .success(let fetchedAlbums):
-                self.albums = fetchedAlbums
+            case .success(let fetchedUsers):
+                self.posts = fetchedUsers
                 self.tableView.reloadData()
             }
         }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return albums.count
+        return posts.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "AlbumCell", for: indexPath) as? AlbumTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TitleAndDescriptionCell", for: indexPath) as? TitleAndDescriptionTableViewCell else {
             return UITableViewCell()
         }
 
-        let album = albums[indexPath.row]
-        cell.albumNameLabel.text = album.title
+        let post = posts[indexPath.row]
+        cell.titleLabel.text = post.title
+        cell.descriptionLabel.text = post.body
 
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let album = albums[indexPath.row]
-        coordinator?.showPhotosIn(album: album, ofUser: user)
+        let post = posts[indexPath.row]
+        coordinator?.showCommentsIn(post: post, ofUser: user)
     }
 }

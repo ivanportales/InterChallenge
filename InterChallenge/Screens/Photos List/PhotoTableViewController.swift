@@ -2,13 +2,13 @@ import Alamofire
 import UIKit
 
 class PhotoTableViewController: UITableViewController {
-    weak var coordinator: PhotoCoordinator?
+    weak var coordinator: MainCoordinator?
     var repository: PhotosRepository
     var user: User
     var album: Album
     var photos = [Photo]()
     
-    init(user: User, album: Album, repository: PhotosRepository, coordinator: PhotoCoordinator) {
+    init(user: User, album: Album, repository: PhotosRepository, coordinator: MainCoordinator) {
         self.repository = repository
         self.coordinator = coordinator
         self.album = album

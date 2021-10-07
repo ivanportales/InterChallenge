@@ -6,7 +6,7 @@ protocol UserTableViewCellDelegate: AnyObject {
 }
 
 class UserTableViewCell: UITableViewCell {
-    
+    static let cellIdentifier = "UserCell"
     @IBOutlet weak var initialsLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!

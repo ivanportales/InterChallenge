@@ -1,14 +1,12 @@
-import Alamofire
+import Combine
 import UIKit
 
 class UsersTableViewController: UITableViewController {
-    weak var coordinator: (AlbumCoordinator & PostCoordinator)?
-    var repository: UsersRepository
-    var users = [User]()
+    let viewModel: UsersTableViewModel
+    var subscribers = Set<AnyCancellable>()
     
-    init(repository: UsersRepository, coordinator: (AlbumCoordinator & PostCoordinator)?) {
-        self.repository = repository
-        self.coordinator = coordinator
+    init(viewModel: UsersTableViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -18,36 +16,21 @@ class UsersTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: "UserTableViewCell", bundle: nil), forCellReuseIdentifier: "UserCell")
-        fillUsers()
+        setupTableView()
+        setBindings()
+        viewModel.fillUsers()
     }
-    
-    private func fillUsers() {
-        repository.getUsers { result in
-            switch result {
-            case .failure(let error):
-                let alert = UIAlertController(title: "Erro", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
-                    alert.dismiss(animated: true)
-                }))
-                self.present(alert, animated: true)
-            case .success(let fetchedUsers):
-                self.users = fetchedUsers
-                self.tableView.reloadData()
-            }
-        }
-    }
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        return viewModel.users.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as? UserTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.cellIdentifier, for: indexPath) as? UserTableViewCell else {
             return UITableViewCell()
         }
         
-        let user = users[indexPath.item]
+        let user = viewModel.users[indexPath.item]
         cell.setDataFrom(user: user)
         cell.delegate = self
         cell.contentView.backgroundColor = indexPath.row % 2 == 0 ? .white : UIColor(white: 0.667, alpha: 0.2)
@@ -56,12 +39,28 @@ class UsersTableViewController: UITableViewController {
     }
 }
 
+extension UsersTableViewController {
+    private func setBindings() {
+        viewModel
+            .$users
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] itens in
+                guard let self = self else { return }
+                self.tableView.reloadData()
+            }.store(in: &subscribers)
+    }
+    
+    private func setupTableView() {
+        tableView.register(UINib(nibName: "UserTableViewCell", bundle: nil), forCellReuseIdentifier: "UserCell")
+    }
+}
+
 extension UsersTableViewController: UserTableViewCellDelegate {
     func didTapAlbums(with user: User) {
-        coordinator?.showAlbumsOf(user: user)
+        viewModel.didTapAlbums(with: user)
     }
     
     func didTapPosts(with user: User) {
-        coordinator?.showPostsOf(user: user)
+        viewModel.didTapPosts(with: user)
     }
 }
