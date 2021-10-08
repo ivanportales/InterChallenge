@@ -1,6 +1,7 @@
 import UIKit
 
 class AlbumTableViewCell: UITableViewCell {
+    static let cellIdentifier = "AlbumCell"
     @IBOutlet weak var albumNameLabel: UILabel!
     
     override func awakeFromNib() {

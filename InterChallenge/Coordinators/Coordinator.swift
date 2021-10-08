@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit.UINavigationController
-import UIKit.UIImage
 
 protocol Coordinator {
     var childCoordinators: [Coordinator] { get set }
@@ -15,23 +14,3 @@ protocol Coordinator {
     
     func start()
 }
-
-//protocol AlbumCoordinator: AnyObject, Coordinator {
-//    func showAlbumsOf(user: User)
-//}
-//
-//protocol PostCoordinator: AnyObject, Coordinator {
-//    func showPostsOf(user: User)
-//}
-//
-//protocol CommentCoordinator: AnyObject, Coordinator {
-//    func showCommentsIn(post: Post, ofUser user: User)
-//}
-//
-//protocol PhotosListCoordinator: AnyObject, Coordinator {
-//    func showPhotosIn(album: Album, ofUser user: User)
-//}
-//
-//protocol PhotoCoordinator: AnyObject, Coordinator {
-//    func showDetailsOf(photo: Photo, showingImage image: UIImage)
-//}

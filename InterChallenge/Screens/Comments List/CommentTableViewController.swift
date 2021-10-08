@@ -14,6 +14,7 @@ class CommentTableViewController: UITableViewController {
         fatalError("This view controller does not support Storyboard!")
     }
 
+    // MARK: - View Controller Life Cycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
@@ -23,13 +24,14 @@ class CommentTableViewController: UITableViewController {
     }
 }
 
+// MARK: - Override of table view functions
 extension CommentTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.comments.count
     }
      
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TitleAndDescriptionCell", for: indexPath) as? TitleAndDescriptionTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleAndDescriptionTableViewCell.cellIdentifier, for: indexPath) as? TitleAndDescriptionTableViewCell else {
              return UITableViewCell()
          }
 
@@ -42,6 +44,7 @@ extension CommentTableViewController {
      }
 }
 
+// MARK: - Private helper functions
 extension CommentTableViewController {
     private func setupNavigationBar() {
         navigationItem.title = "Comentários de \(viewModel.navigationBarTitle)"
@@ -49,7 +52,7 @@ extension CommentTableViewController {
     
     private func setupTabtleView() {
         tableView.register(UINib(nibName: "TitleAndDescriptionTableViewCell", bundle: nil),
-                           forCellReuseIdentifier: "TitleAndDescriptionCell")
+                           forCellReuseIdentifier: TitleAndDescriptionTableViewCell.cellIdentifier)
     }
     private func setupBindings() {
         viewModel

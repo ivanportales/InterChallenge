@@ -1,7 +1,7 @@
 import UIKit
 
 class PhotoTableViewCell: UITableViewCell {
-
+    static let cellIdentifier = "PhotoCell"
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     

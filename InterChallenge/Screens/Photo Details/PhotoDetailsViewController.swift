@@ -2,14 +2,14 @@ import Combine
 import UIKit
 
 class PhotoDetailsViewController: UIViewController {
-    var detailImageView: UIImageView = {
+    lazy var detailImageView: UIImageView = {
         let newView = UIImageView()
         newView.translatesAutoresizingMaskIntoConstraints = false
         
         return newView
     }()
     
-    var nameLabel: UILabel = {
+    lazy var nameLabel: UILabel = {
         let newView = UILabel()
         newView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -31,16 +31,15 @@ class PhotoDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(detailImageView)
-        self.view.addSubview(nameLabel)
         self.view.backgroundColor = .white
-        setImageView()
         setLabelView()
-        detailImageView.image = image
-        nameLabel.text = photo.title
+        setImageView()
     }
-    
+}
+
+extension PhotoDetailsViewController {
     private func setImageView() {
+        self.view.addSubview(detailImageView)
         NSLayoutConstraint.activate([
             detailImageView.heightAnchor.constraint(equalToConstant: 250),
             detailImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -48,12 +47,15 @@ class PhotoDetailsViewController: UIViewController {
             detailImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24),
             detailImageView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: -16)
         ])
+        detailImageView.image = image
     }
     
     private func setLabelView() {
+        self.view.addSubview(nameLabel)
         NSLayoutConstraint.activate([
             nameLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
             nameLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24),
         ])
+        nameLabel.text = photo.title
     }
 }

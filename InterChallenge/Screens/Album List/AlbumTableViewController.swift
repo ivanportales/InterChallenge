@@ -2,15 +2,11 @@ import Combine
 import UIKit
 
 class AlbumTableViewController: UITableViewController {
-    weak var coordinator: MainCoordinator?
-    var user: User
-    var repository: AlbumsRepository
-    var albums = [Album]()
+    private let viewModel: AlbumTableViewModel
+    private var subscribers = Set<AnyCancellable>()
     
-    init(user: User, repository: AlbumsRepository, coordinator: MainCoordinator) {
-        self.repository = repository
-        self.user = user
-        self.coordinator = coordinator
+    init(viewModel: AlbumTableViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -18,46 +14,56 @@ class AlbumTableViewController: UITableViewController {
         fatalError("This view controller does not support Storyboard!")
     }
 
+    // MARK: - View Controller Life Cycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Álbuns de \(user.name)"
-        tableView.register(UINib(nibName: "AlbumTableViewCell", bundle: nil), forCellReuseIdentifier: "AlbumCell")
-        fillAlbums()
+        setupNavigationBar()
+        setupTabtleView()
+        setupBindings()
+        viewModel.fillAlbums()
     }
-    
-    private func fillAlbums() {
-        repository.getAlbumsOf(userId: user.id) { result in
-            switch result {
-            case .failure(let error):
-                let alert = UIAlertController(title: "Erro", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
-                    alert.dismiss(animated: true)
-                }))
-                self.present(alert, animated: true)
-            case .success(let fetchedAlbums):
-                self.albums = fetchedAlbums
-                self.tableView.reloadData()
-            }
-        }
-    }
+}
 
+// MARK: - Override of table view functions
+extension AlbumTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return albums.count
+        return viewModel.albums.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "AlbumCell", for: indexPath) as? AlbumTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: AlbumTableViewCell.cellIdentifier, for: indexPath) as? AlbumTableViewCell else {
             return UITableViewCell()
         }
 
-        let album = albums[indexPath.row]
+        let album = viewModel.albums[indexPath.row]
         cell.albumNameLabel.text = album.title
 
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let album = albums[indexPath.row]
-        coordinator?.showPhotosIn(album: album, ofUser: user)
+        let album = viewModel.albums[indexPath.row]
+        viewModel.showPhotosIn(album: album)
+    }
+}
+
+// MARK: - Private helper functions
+extension AlbumTableViewController {
+    private func setupNavigationBar() {
+        navigationItem.title = "Álbuns de \(viewModel.navigationBarTitle)"
+    }
+    
+    private func setupTabtleView() {
+        tableView.register(UINib(nibName: "AlbumTableViewCell", bundle: nil), forCellReuseIdentifier: AlbumTableViewCell.cellIdentifier)
+    }
+    
+    private func setupBindings() {
+        viewModel
+            .$albums
+            .receive(on: DispatchQueue.main)
+            .sink {[weak self] _ in
+                guard let self = self else { return }
+                self.tableView.reloadData()
+            }.store(in: &subscribers)
     }
 }
