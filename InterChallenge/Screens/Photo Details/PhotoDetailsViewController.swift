@@ -29,6 +29,7 @@ class PhotoDetailsViewController: UIViewController {
         fatalError("This view controller does not support Storyboard!")
     }
     
+    // MARK: - View Controller Life Cycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -37,6 +38,7 @@ class PhotoDetailsViewController: UIViewController {
     }
 }
 
+// MARK: - Private helper functions
 extension PhotoDetailsViewController {
     private func setImageView() {
         self.view.addSubview(detailImageView)

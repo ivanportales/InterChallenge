@@ -10,6 +10,7 @@ import Combine
 
 class CommentTableViewModel: ObservableObject {
     @Published private(set) var comments = [Comment]()
+    @Published private(set) var errorMessage: String = ""
     private let repository: CommentRepository
     private let user: User
     private let post: Post
@@ -28,12 +29,7 @@ class CommentTableViewModel: ObservableObject {
         repository.getCommentsFrom(postId: post.id) { result in
             switch result {
             case .failure(let error):
-//                let alert = UIAlertController(title: "Erro", message: error.localizedDescription, preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
-//                    alert.dismiss(animated: true)
-//                }))
-//                self.present(alert, animated: true)
-                print(error.localizedDescription)
+                self.errorMessage = error.localizedDescription
             case .success(let fetchedComments):
                 self.comments = fetchedComments
             }

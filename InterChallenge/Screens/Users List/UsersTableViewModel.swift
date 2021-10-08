@@ -10,7 +10,8 @@ import Combine
 
 class UsersTableViewModel: ObservableObject {
     @Published private(set) var users = [User]()
-    private weak var coordinator: MainCoordinator?
+    @Published private(set) var errorMessage: String = ""
+    private let coordinator: MainCoordinator
     private let repository: UsersRepository
     
     init(repository: UsersRepository, coordinator: MainCoordinator) {
@@ -20,27 +21,21 @@ class UsersTableViewModel: ObservableObject {
     
     func fillUsers() {
         repository.getUsers {[weak self] result in
+            guard let self = self else { return }
             switch result {
             case .failure(let error):
-                print(error.localizedDescription)
-//                let alert = UIAlertController(title: "Erro", message: error.localizedDescription, preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
-//                    alert.dismiss(animated: true)
-//                }))
-//                self.present(alert, animated: true)
+                self.errorMessage = error.localizedDescription
             case .success(let fetchedUsers):
-                guard let self = self else { return }
                 self.users = fetchedUsers
             }
         }
     }
     
-    // passar isso pra viewModel da celula da tableview
     func didTapAlbums(with user: User) {
-        coordinator?.showAlbumsOf(user: user)
+        coordinator.showAlbumsOf(user: user)
     }
     
     func didTapPosts(with user: User) {
-        coordinator?.showPostsOf(user: user)
+        coordinator.showPostsOf(user: user)
     }
 }

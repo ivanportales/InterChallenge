@@ -19,6 +19,7 @@
 		AE8A3293270D343300FC3DA8 /* PhotosRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8A3292270D343300FC3DA8 /* PhotosRepository.swift */; };
 		AE8A3295270D468200FC3DA8 /* PostRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8A3294270D468200FC3DA8 /* PostRepository.swift */; };
 		AE8A3297270D47A000FC3DA8 /* CommentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8A3296270D47A000FC3DA8 /* CommentRepository.swift */; };
+		AED931132711038A00B30AA7 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED931122711038A00B30AA7 /* UIViewControllerExtensions.swift */; };
 		BA0CF8B126321D30007BDFC8 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA0CF89A26321BAE007BDFC8 /* Alamofire.framework */; };
 		BA0CF8B226321D30007BDFC8 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA0CF89A26321BAE007BDFC8 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BA0CF8B92632F566007BDFC8 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0CF8B72632F566007BDFC8 /* UserTableViewCell.swift */; };
@@ -141,6 +142,7 @@
 		AE8A3292270D343300FC3DA8 /* PhotosRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosRepository.swift; sourceTree = "<group>"; };
 		AE8A3294270D468200FC3DA8 /* PostRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRepository.swift; sourceTree = "<group>"; };
 		AE8A3296270D47A000FC3DA8 /* CommentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepository.swift; sourceTree = "<group>"; };
+		AED931122711038A00B30AA7 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		BA0CF88F26321BAE007BDFC8 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		BA0CF8B72632F566007BDFC8 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		BA0CF8B82632F566007BDFC8 /* UserTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserTableViewCell.xib; sourceTree = "<group>"; };
@@ -280,12 +282,20 @@
 			isa = PBXGroup;
 			children = (
 				AE8A328E270D276600FC3DA8 /* UsersRepository.swift */,
-				AE8A3290270D2EA900FC3DA8 /* AlbumsRepository.swift */,
-				AE8A3292270D343300FC3DA8 /* PhotosRepository.swift */,
 				AE8A3294270D468200FC3DA8 /* PostRepository.swift */,
 				AE8A3296270D47A000FC3DA8 /* CommentRepository.swift */,
+				AE8A3290270D2EA900FC3DA8 /* AlbumsRepository.swift */,
+				AE8A3292270D343300FC3DA8 /* PhotosRepository.swift */,
 			);
 			path = Repositories;
+			sourceTree = "<group>";
+		};
+		AED931112711037A00B30AA7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AED931122711038A00B30AA7 /* UIViewControllerExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		BA0CF86C26321AE6007BDFC8 /* Frameworks */ = {
@@ -313,10 +323,10 @@
 		BA0CF8B62632F552007BDFC8 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				BA0CF8C926334B6D007BDFC8 /* User */,
 				BA0CF8F226336D97007BDFC8 /* Photo */,
 				BA0CF8E126336A72007BDFC8 /* Album */,
 				BA0CF8CA26334B99007BDFC8 /* Post and Comment */,
-				BA0CF8C926334B6D007BDFC8 /* User */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -393,6 +403,7 @@
 		BA93F7EA2632035800CE8AFF /* InterChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				AED931112711037A00B30AA7 /* Extensions */,
 				AE20CD34270E30D400ADFE24 /* Coordinators */,
 				AE20CD32270E256B00ADFE24 /* Screens */,
 				AE8A328D270D274800FC3DA8 /* Repositories */,
@@ -639,6 +650,7 @@
 				BA0CF8DE263358E5007BDFC8 /* Comment.swift in Sources */,
 				AE20CD36270E30E600ADFE24 /* Coordinator.swift in Sources */,
 				BA93F7EE2632035800CE8AFF /* SceneDelegate.swift in Sources */,
+				AED931132711038A00B30AA7 /* UIViewControllerExtensions.swift in Sources */,
 				BA0CF8DA26335759007BDFC8 /* Post.swift in Sources */,
 				BA0CF8D226334FDB007BDFC8 /* PostTableViewController.swift in Sources */,
 				AE20CD3F270E7A7200ADFE24 /* UsersTableViewModel.swift in Sources */,

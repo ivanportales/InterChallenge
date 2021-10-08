@@ -25,6 +25,7 @@ class PhotoTableViewController: UITableViewController {
     }
 }
 
+// tem que criar um repo ou service pra pegar as imagens e cachear na memória RAM
 // MARK: - Override of table view functions
 extension PhotoTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

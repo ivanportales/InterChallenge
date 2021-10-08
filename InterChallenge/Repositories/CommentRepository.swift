@@ -14,20 +14,22 @@ protocol CommentRepository {
 
 class WebCommentRepository: CommentRepository {
     func getCommentsFrom(postId: Int, completion: @escaping (Result<[Comment], RepositoryError>) -> ()) {
-        AF.request("https://jsonplaceholder.typicode.com/comments?postId=\(postId)").validate().responseJSON { response in
-            guard response.error == nil else {
-                completion(.failure(.responseError))
-                return
-            }
-            
-            do {
-                if let data = response.data {
-                    let models = try JSONDecoder().decode([Comment].self, from: data)
-                    completion(.success(models))
+        AF.request("https://jsonplaceholder.typicode.com/comments?postId=\(postId)")
+            .validate()
+            .responseJSON { response in
+                guard response.error == nil else {
+                    completion(.failure(.responseError))
+                    return
                 }
-            } catch {
-                completion(.failure(.serializationError))
-            }
+                
+                do {
+                    if let data = response.data {
+                        let models = try JSONDecoder().decode([Comment].self, from: data)
+                        completion(.success(models))
+                    }
+                } catch {
+                    completion(.failure(.serializationError))
+                }
         }
     }
 }

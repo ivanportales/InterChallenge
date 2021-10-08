@@ -65,5 +65,15 @@ extension AlbumTableViewController {
                 guard let self = self else { return }
                 self.tableView.reloadData()
             }.store(in: &subscribers)
+        
+        viewModel
+            .$errorMessage
+            .receive(on: DispatchQueue.main)
+            .sink {[weak self] message in
+                guard let self = self else { return }
+                if !message.isEmpty {
+                    self.presentErrorAlertWith(message: message)
+                }
+            }.store(in: &subscribers)
     }
 }

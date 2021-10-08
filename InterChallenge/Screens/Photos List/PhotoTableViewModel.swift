@@ -11,10 +11,11 @@ import Combine
 
 class PhotoTableViewModel: ObservableObject {
     @Published private(set) var photos = [Photo]()
-    weak var coordinator: MainCoordinator?
-    var repository: PhotosRepository
-    var user: User
-    var album: Album
+    @Published private(set) var errorMessage: String = ""
+    private let coordinator: MainCoordinator
+    private let repository: PhotosRepository
+    private let user: User
+    private let album: Album
     
     var navigationBarTitle: String {
         user.name
@@ -31,7 +32,7 @@ class PhotoTableViewModel: ObservableObject {
         repository.getPhotosFrom(albumId: album.id) { result in
             switch result {
             case .failure(let error):
-                print(error.localizedDescription)
+                self.errorMessage = error.localizedDescription
             case .success(let fetchedPhotos):
                 self.photos = fetchedPhotos
             }
@@ -39,6 +40,6 @@ class PhotoTableViewModel: ObservableObject {
     }
     
     func showDetailsOf(photo: Photo, showingImage image: UIImage) {
-        self.coordinator?.showDetailsOf(photo: photo, showingImage: image)
+        coordinator.showDetailsOf(photo: photo, showingImage: image)
     }
 }

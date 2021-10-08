@@ -10,7 +10,8 @@ import Combine
 
 class PostsTableViewModel: ObservableObject {
     @Published private(set) var posts = [Post]()
-    private weak var coordinator: MainCoordinator?
+    @Published private(set) var errorMessage: String = ""
+    private let coordinator: MainCoordinator
     private let repository: PostRepository
     private let user: User
     
@@ -26,22 +27,17 @@ class PostsTableViewModel: ObservableObject {
     
     func fillPosts() {
         repository.getPostsFrom(userId: user.id) {[weak self] result in
+            guard let self = self else { return }
             switch result {
             case .failure(let error):
-                print(error)
-//                let alert = UIAlertController(title: "Erro", message: error.localizedDescription, preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
-//                    alert.dismiss(animated: true)
-//                }))
-//                self.present(alert, animated: true)
+                self.errorMessage = error.localizedDescription
             case .success(let fetchedPosts):
-                guard let self = self else { return }
                 self.posts = fetchedPosts
             }
         }
     }
     
     func showCommentsOf(post: Post) {
-        coordinator?.showCommentsIn(post: post, ofUser: user)
+        coordinator.showCommentsIn(post: post, ofUser: user)
     }
 }

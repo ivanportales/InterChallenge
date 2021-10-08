@@ -9,9 +9,10 @@ import Foundation
 
 class AlbumTableViewModel: ObservableObject {
     @Published private(set) var albums = [Album]()
-    weak var coordinator: MainCoordinator?
-    var repository: AlbumsRepository
-    var user: User
+    @Published private(set) var errorMessage: String = ""
+    private let coordinator: MainCoordinator
+    private let repository: AlbumsRepository
+    private let user: User
     
     var navigationBarTitle: String {
         user.name
@@ -27,7 +28,7 @@ class AlbumTableViewModel: ObservableObject {
         repository.getAlbumsOf(userId: user.id) { result in
             switch result {
             case .failure(let error):
-                print(error.localizedDescription)
+                self.errorMessage = error.localizedDescription
             case .success(let fetchedAlbums):
                 self.albums = fetchedAlbums
             }
@@ -35,6 +36,6 @@ class AlbumTableViewModel: ObservableObject {
     }
     
     func showPhotosIn(album: Album) {
-        coordinator?.showPhotosIn(album: album, ofUser: user)
+        coordinator.showPhotosIn(album: album, ofUser: user)
     }
 }
