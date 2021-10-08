@@ -2,8 +2,8 @@ import Combine
 import UIKit
 
 class UsersTableViewController: UITableViewController {
-    let viewModel: UsersTableViewModel
-    var subscribers = Set<AnyCancellable>()
+    private let viewModel: UsersTableViewModel
+    private var subscribers = Set<AnyCancellable>()
     
     init(viewModel: UsersTableViewModel) {
         self.viewModel = viewModel
@@ -14,13 +14,17 @@ class UsersTableViewController: UITableViewController {
         fatalError("This view controller does not support Storyboard!")
     }
     
+    // MARK: - View Controller Life Cycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         setBindings()
         viewModel.fillUsers()
     }
-
+}
+   
+// MARK: - Override of table view functions
+extension UsersTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.users.count
     }
@@ -39,7 +43,12 @@ class UsersTableViewController: UITableViewController {
     }
 }
 
+// MARK: - Private helper functions
 extension UsersTableViewController {
+    private func setupTableView() {
+        tableView.register(UINib(nibName: "UserTableViewCell", bundle: nil), forCellReuseIdentifier: UserTableViewCell.cellIdentifier)
+    }
+    
     private func setBindings() {
         viewModel
             .$users
@@ -49,12 +58,9 @@ extension UsersTableViewController {
                 self.tableView.reloadData()
             }.store(in: &subscribers)
     }
-    
-    private func setupTableView() {
-        tableView.register(UINib(nibName: "UserTableViewCell", bundle: nil), forCellReuseIdentifier: "UserCell")
-    }
 }
 
+// MARK: - Table view cell delegate functions
 extension UsersTableViewController: UserTableViewCellDelegate {
     func didTapAlbums(with user: User) {
         viewModel.didTapAlbums(with: user)

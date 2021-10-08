@@ -1,16 +1,12 @@
-import Alamofire
+import Combine
 import UIKit
 
 class CommentTableViewController: UITableViewController {
-    let user: User
-    let post: Post
-    let repository: CommentRepository
-    var comments = [Comment]()
+    private let viewModel: CommentTableViewModel
+    private var subscribers = Set<AnyCancellable>()
     
-    init(user: User, post: Post, repository: CommentRepository) {
-        self.repository = repository
-        self.post = post
-        self.user = user
+    init(viewModel: CommentTableViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -20,41 +16,48 @@ class CommentTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Comentários de \(user.name)"
-        tableView.register(UINib(nibName: "TitleAndDescriptionTableViewCell", bundle: nil),
-                           forCellReuseIdentifier: "TitleAndDescriptionCell")
-        fillComments()
+        setupNavigationBar()
+        setupTabtleView()
+        setupBindings()
+        viewModel.fillComments()
+    }
+}
+
+extension CommentTableViewController {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.comments.count
+    }
+     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TitleAndDescriptionCell", for: indexPath) as? TitleAndDescriptionTableViewCell else {
+             return UITableViewCell()
+         }
+
+        let comment = viewModel.comments[indexPath.row]
+         cell.selectionStyle = .none
+         cell.titleLabel.text = comment.name
+         cell.descriptionLabel.text = comment.body
+
+         return cell
+     }
+}
+
+extension CommentTableViewController {
+    private func setupNavigationBar() {
+        navigationItem.title = "Comentários de \(viewModel.navigationBarTitle)"
     }
     
-    private func fillComments() {
-        repository.getCommentsFrom(postId: post.id) { result in
-            switch result {
-            case .failure(let error):
-                let alert = UIAlertController(title: "Erro", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
-                    alert.dismiss(animated: true)
-                }))
-                self.present(alert, animated: true)
-            case .success(let fetchedComments):
-                self.comments = fetchedComments
+    private func setupTabtleView() {
+        tableView.register(UINib(nibName: "TitleAndDescriptionTableViewCell", bundle: nil),
+                           forCellReuseIdentifier: "TitleAndDescriptionCell")
+    }
+    private func setupBindings() {
+        viewModel
+            .$comments
+            .receive(on: DispatchQueue.main)
+            .sink {[weak self] _ in
+                guard let self = self else { return }
                 self.tableView.reloadData()
-            }
-        }   }
-
-   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return comments.count
-   }
-    
-   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TitleAndDescriptionCell", for: indexPath) as? TitleAndDescriptionTableViewCell else {
-            return UITableViewCell()
-        }
-
-        let comment = comments[indexPath.row]
-        cell.selectionStyle = .none
-        cell.titleLabel.text = comment.name
-        cell.descriptionLabel.text = comment.body
-
-        return cell
+            }.store(in: &subscribers)
     }
 }

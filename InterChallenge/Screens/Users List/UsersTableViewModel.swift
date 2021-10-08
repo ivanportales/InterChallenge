@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 class UsersTableViewModel: ObservableObject {
+    @Published private(set) var users = [User]()
     private weak var coordinator: MainCoordinator?
     private let repository: UsersRepository
-    @Published private(set) var users = [User]()
     
     init(repository: UsersRepository, coordinator: MainCoordinator) {
         self.repository = repository
@@ -44,4 +44,3 @@ class UsersTableViewModel: ObservableObject {
         coordinator?.showPostsOf(user: user)
     }
 }
-

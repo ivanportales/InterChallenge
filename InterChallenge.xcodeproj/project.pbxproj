@@ -10,6 +10,8 @@
 		AE20CD36270E30E600ADFE24 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE20CD35270E30E600ADFE24 /* Coordinator.swift */; };
 		AE20CD38270E446300ADFE24 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE20CD37270E446300ADFE24 /* MainCoordinator.swift */; };
 		AE20CD3F270E7A7200ADFE24 /* UsersTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE20CD3E270E7A7200ADFE24 /* UsersTableViewModel.swift */; };
+		AE3E0FC2270F432C003965BE /* PostsTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3E0FC1270F432C003965BE /* PostsTableViewModel.swift */; };
+		AE75FDC8270FF0BE006E4D11 /* CommentTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75FDC7270FF0BE006E4D11 /* CommentTableViewModel.swift */; };
 		AE8A328F270D276600FC3DA8 /* UsersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8A328E270D276600FC3DA8 /* UsersRepository.swift */; };
 		AE8A3291270D2EA900FC3DA8 /* AlbumsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8A3290270D2EA900FC3DA8 /* AlbumsRepository.swift */; };
 		AE8A3293270D343300FC3DA8 /* PhotosRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8A3292270D343300FC3DA8 /* PhotosRepository.swift */; };
@@ -128,6 +130,8 @@
 		AE20CD35270E30E600ADFE24 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		AE20CD37270E446300ADFE24 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		AE20CD3E270E7A7200ADFE24 /* UsersTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewModel.swift; sourceTree = "<group>"; };
+		AE3E0FC1270F432C003965BE /* PostsTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsTableViewModel.swift; sourceTree = "<group>"; };
+		AE75FDC7270FF0BE006E4D11 /* CommentTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewModel.swift; sourceTree = "<group>"; };
 		AE8A328E270D276600FC3DA8 /* UsersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersRepository.swift; sourceTree = "<group>"; };
 		AE8A3290270D2EA900FC3DA8 /* AlbumsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsRepository.swift; sourceTree = "<group>"; };
 		AE8A3292270D343300FC3DA8 /* PhotosRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosRepository.swift; sourceTree = "<group>"; };
@@ -228,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				BA0CF8D126334FDB007BDFC8 /* PostTableViewController.swift */,
+				AE3E0FC1270F432C003965BE /* PostsTableViewModel.swift */,
 			);
 			path = "Posts List";
 			sourceTree = "<group>";
@@ -236,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				BA0CF8D526334FF0007BDFC8 /* CommentTableViewController.swift */,
+				AE75FDC7270FF0BE006E4D11 /* CommentTableViewModel.swift */,
 			);
 			path = "Comments List";
 			sourceTree = "<group>";
@@ -628,7 +634,9 @@
 				BA0CF8DA26335759007BDFC8 /* Post.swift in Sources */,
 				BA0CF8D226334FDB007BDFC8 /* PostTableViewController.swift in Sources */,
 				AE20CD3F270E7A7200ADFE24 /* UsersTableViewModel.swift in Sources */,
+				AE3E0FC2270F432C003965BE /* PostsTableViewModel.swift in Sources */,
 				BA0CF8CD26334BC3007BDFC8 /* TitleAndDescriptionTableViewCell.swift in Sources */,
+				AE75FDC8270FF0BE006E4D11 /* CommentTableViewModel.swift in Sources */,
 				AE8A328F270D276600FC3DA8 /* UsersRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

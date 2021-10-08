@@ -17,7 +17,8 @@ class MainCoordinator: Coordinator {
     }
     
     func start() {
-        let firstVC = UsersTableViewController(viewModel: UsersTableViewModel(repository: WebUserRepository(), coordinator: self))
+        let viewModel = UsersTableViewModel(repository: WebUserRepository(), coordinator: self)
+        let firstVC = UsersTableViewController(viewModel: viewModel)
         navigationController.pushViewController(firstVC, animated: false)
     }
 }
@@ -31,14 +32,16 @@ extension MainCoordinator {
 
 extension MainCoordinator {
     func showPostsOf(user: User) {
-        let destinationVC = PostTableViewController(user: user, repository: WebPostsRepository(), coordinator: self)
+        let viewModel = PostsTableViewModel(user: user, repository: WebPostsRepository(), coordinator: self)
+        let destinationVC = PostTableViewController(viewModel: viewModel)
         navigationController.pushViewController(destinationVC, animated: true)
     }
 }
 
 extension MainCoordinator {
     func showCommentsIn(post: Post, ofUser user: User) {
-        let destinationVC = CommentTableViewController(user: user, post: post, repository: WebCommentRepository())
+        let viewModel = CommentTableViewModel(user: user, post: post, repository: WebCommentRepository())
+        let destinationVC = CommentTableViewController(viewModel: viewModel)
         navigationController.pushViewController(destinationVC, animated: true)
     }
 }

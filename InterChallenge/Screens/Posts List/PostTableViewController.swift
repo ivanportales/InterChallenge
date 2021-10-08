@@ -1,57 +1,41 @@
-import Alamofire
+import Combine
 import UIKit
 
 class PostTableViewController: UITableViewController {
-    weak var coordinator: MainCoordinator?
-    let user: User
-    let repository: PostRepository
-    var posts = [Post]()
+    private let viewModel: PostsTableViewModel
+    private var subscribers = Set<AnyCancellable>()
     
-    init(user: User, repository: PostRepository, coordinator: MainCoordinator) {
-        self.repository = repository
-        self.user = user
-        self.coordinator = coordinator
+    init(viewModel: PostsTableViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("This view controller does not support Storyboard!")
     }
-
+    
+    // MARK: - View Controller Life Cycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Postagens de \(user.name)"
-        tableView.register(UINib(nibName: "TitleAndDescriptionTableViewCell", bundle: nil),
-                           forCellReuseIdentifier: "TitleAndDescriptionCell")
-        fillPosts()
+        setupNavigationBar()
+        setupTableView()
+        setupBindings()
+        viewModel.fillPosts()
     }
-    
-    private func fillPosts() {
-        repository.getPostsFrom(userId: user.id) { result in
-            switch result {
-            case .failure(let error):
-                let alert = UIAlertController(title: "Erro", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
-                    alert.dismiss(animated: true)
-                }))
-                self.present(alert, animated: true)
-            case .success(let fetchedUsers):
-                self.posts = fetchedUsers
-                self.tableView.reloadData()
-            }
-        }
-    }
+}
 
+// MARK: - Override of table view functions
+extension PostTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
+        return viewModel.posts.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TitleAndDescriptionCell", for: indexPath) as? TitleAndDescriptionTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleAndDescriptionTableViewCell.cellIdentifier, for: indexPath) as? TitleAndDescriptionTableViewCell else {
             return UITableViewCell()
         }
 
-        let post = posts[indexPath.row]
+        let post = viewModel.posts[indexPath.row]
         cell.titleLabel.text = post.title
         cell.descriptionLabel.text = post.body
 
@@ -59,7 +43,29 @@ class PostTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let post = posts[indexPath.row]
-        coordinator?.showCommentsIn(post: post, ofUser: user)
+        let post = viewModel.posts[indexPath.row]
+        viewModel.showCommentsOf(post: post)
+    }
+}
+
+// MARK: - Private helper functions
+extension PostTableViewController {
+    private func setupNavigationBar() {
+        navigationItem.title = "Postagens de \(viewModel.navigationBarTitle)"
+    }
+    
+    private func setupTableView() {
+        tableView.register(UINib(nibName: "TitleAndDescriptionTableViewCell", bundle: nil),
+                           forCellReuseIdentifier: TitleAndDescriptionTableViewCell.cellIdentifier)
+    }
+    
+    private func setupBindings() {
+        viewModel
+            .$posts
+            .receive(on: DispatchQueue.main)
+            .sink {[weak self] _ in
+                guard let self = self else { return }
+                self.tableView.reloadData()
+            }.store(in: &subscribers)
     }
 }
