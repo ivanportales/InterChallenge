@@ -49,7 +49,8 @@ extension MainCoordinator {
 
 extension MainCoordinator {
     func showPhotosIn(album: Album, ofUser user: User) {
-        let viewModel = PhotoTableViewModel(user: user, album: album, repository: WebPhotoRepository(), coordinator: self)
+        let repository = PhotosRepositoryCacheDecorator(cache: PhotoImageCache(), repository:  WebPhotoRepository())
+        let viewModel = PhotoTableViewModel(user: user, album: album, repository: repository, coordinator: self)
         let destinationVC = PhotoTableViewController(viewModel: viewModel)
         navigationController.pushViewController(destinationVC, animated: true)
     }

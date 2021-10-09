@@ -39,15 +39,24 @@ extension PhotoTableViewController {
 
         let photo = viewModel.photos[indexPath.row]
         cell.titleLabel.text = photo.title
-
-        AF.download(photo.thumbnailUrl).responseData { response in
-            switch response.result {
+        
+        viewModel.getImageFrom(urlString: photo.thumbnailUrl) { result in
+            switch result {
             case .success(let data):
                 cell.photoImageView.image = UIImage(data: data)
             default:
                 break
             }
         }
+
+//        AF.download(photo.thumbnailUrl).responseData { response in
+//            switch response.result {
+//            case .success(let data):
+//                cell.photoImageView.image = UIImage(data: data)
+//            default:
+//                break
+//            }
+//        }
         
         return cell
     }

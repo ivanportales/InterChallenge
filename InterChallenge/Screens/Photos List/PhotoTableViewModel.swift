@@ -39,6 +39,10 @@ class PhotoTableViewModel: ObservableObject {
         }
     }
     
+    func getImageFrom(urlString: String, completion: @escaping (Result<Data, RepositoryError>) -> ()) {
+        repository.getImageDataOf(stringUrl: urlString, completion: completion)
+    }
+    
     func showDetailsOf(photo: Photo, showingImage image: UIImage) {
         coordinator.showDetailsOf(photo: photo, showingImage: image)
     }
