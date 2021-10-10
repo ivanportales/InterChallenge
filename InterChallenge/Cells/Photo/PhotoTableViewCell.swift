@@ -21,6 +21,10 @@ class PhotoTableViewCell: UITableViewCell {
         setTitleLabelView()
     }
     
+    func setDataOf(photo: Photo) {
+        
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("this view does not support Storyboard!")
     }

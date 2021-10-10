@@ -11,6 +11,7 @@
 		AE20CD38270E446300ADFE24 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE20CD37270E446300ADFE24 /* MainCoordinator.swift */; };
 		AE20CD3F270E7A7200ADFE24 /* UsersTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE20CD3E270E7A7200ADFE24 /* UsersTableViewModel.swift */; };
 		AE3E0FC2270F432C003965BE /* PostsTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3E0FC1270F432C003965BE /* PostsTableViewModel.swift */; };
+		AE6CA9702712A4E500DE9340 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6CA96F2712A4E500DE9340 /* UIViewExtensions.swift */; };
 		AE75FDC8270FF0BE006E4D11 /* CommentTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75FDC7270FF0BE006E4D11 /* CommentTableViewModel.swift */; };
 		AE75FDD1270FF574006E4D11 /* AlbumTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75FDD0270FF574006E4D11 /* AlbumTableViewModel.swift */; };
 		AE75FDD3270FF923006E4D11 /* PhotoTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE75FDD2270FF923006E4D11 /* PhotoTableViewModel.swift */; };
@@ -135,6 +136,7 @@
 		AE20CD37270E446300ADFE24 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		AE20CD3E270E7A7200ADFE24 /* UsersTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewModel.swift; sourceTree = "<group>"; };
 		AE3E0FC1270F432C003965BE /* PostsTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsTableViewModel.swift; sourceTree = "<group>"; };
+		AE6CA96F2712A4E500DE9340 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		AE75FDC7270FF0BE006E4D11 /* CommentTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewModel.swift; sourceTree = "<group>"; };
 		AE75FDD0270FF574006E4D11 /* AlbumTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTableViewModel.swift; sourceTree = "<group>"; };
 		AE75FDD2270FF923006E4D11 /* PhotoTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTableViewModel.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				AED931122711038A00B30AA7 /* UIViewControllerExtensions.swift */,
+				AE6CA96F2712A4E500DE9340 /* UIViewExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -657,6 +660,7 @@
 				BA0CF8DA26335759007BDFC8 /* Post.swift in Sources */,
 				AED93116271115F200B30AA7 /* PhotosRepositoryDecorator.swift in Sources */,
 				BA0CF8D226334FDB007BDFC8 /* PostTableViewController.swift in Sources */,
+				AE6CA9702712A4E500DE9340 /* UIViewExtensions.swift in Sources */,
 				AE20CD3F270E7A7200ADFE24 /* UsersTableViewModel.swift in Sources */,
 				AE3E0FC2270F432C003965BE /* PostsTableViewModel.swift in Sources */,
 				BA0CF8CD26334BC3007BDFC8 /* TitleAndDescriptionTableViewCell.swift in Sources */,

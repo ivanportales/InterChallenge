@@ -10,10 +10,10 @@ class PhotoDetailsViewController: UIViewController {
     }()
     
     lazy var nameLabel: UILabel = {
-        let newView = UILabel()
-        newView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return newView
+        let labelView = UILabel()
+        labelView.translatesAutoresizingMaskIntoConstraints = false
+        labelView.numberOfLines = 0
+        return labelView
     }()
     
     private let image: UIImage
@@ -32,7 +32,8 @@ class PhotoDetailsViewController: UIViewController {
     // MARK: - View Controller Life Cycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        setViewControllerView()
+        setNavigationBar()
         setLabelView()
         setImageView()
     }
@@ -40,6 +41,15 @@ class PhotoDetailsViewController: UIViewController {
 
 // MARK: - Private helper functions
 extension PhotoDetailsViewController {
+    private func setNavigationBar() {
+        navigationController?.title = "Detalhes"
+        navigationItem.backButtonTitle = "Back"
+    }
+    
+    private func setViewControllerView() {
+        self.view.backgroundColor = .white
+    }
+    
     private func setLabelView() {
         self.view.addSubview(nameLabel)
         NSLayoutConstraint.activate([

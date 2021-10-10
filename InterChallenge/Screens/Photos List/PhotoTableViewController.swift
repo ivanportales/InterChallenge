@@ -49,23 +49,14 @@ extension PhotoTableViewController {
                 break
             }
         }
-
-//        AF.download(photo.thumbnailUrl).responseData { response in
-//            switch response.result {
-//            case .success(let data):
-//                cell.photoImageView.image = UIImage(data: data)
-//            default:
-//                break
-//            }
-//        }
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let photo = viewModel.photos[indexPath.row]
-        AF.download(photo.url).responseData { [weak self] response in
-            switch response.result {
+        viewModel.getImageFrom(urlString: photo.url) { [weak self]result in
+            switch result {
             case .success(let data):
                 guard let self = self else { return }
                 if let image = UIImage(data: data) {

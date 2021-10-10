@@ -19,27 +19,29 @@ class UserTableViewCell: UITableViewCell {
     }()
     
     private lazy var nameLabel: UILabel  = {
-        var labelView = makeGenericUILabelView()
+        var labelView = makeGenericUILabelView(lines: 0)
+        labelView.textAlignment = .center
         return labelView
     }()
     
     private lazy var userNameLabel: UILabel  = {
-        var labelView = makeGenericUILabelView()
+        var labelView = makeGenericUILabelView(lines: 0)
         return labelView
     }()
     
     private lazy var initialsLabel: UILabel  = {
-        var labelView = makeGenericUILabelView()
+        var labelView = makeGenericUILabelView(lines: 0)
+        labelView.textAlignment = .center
         return labelView
     }()
     
     private lazy var emailLabel: UILabel  = {
-        var labelView = makeGenericUILabelView()
+        var labelView = makeGenericUILabelView(lines: 0)
         return labelView
     }()
     
     private lazy var phoneLabel: UILabel  = {
-        var labelView = makeGenericUILabelView()
+        var labelView = makeGenericUILabelView(lines: 0)
         return labelView
     }()
     
@@ -102,60 +104,44 @@ class UserTableViewCell: UITableViewCell {
     }
 }
 
-
-
 extension UserTableViewCell {
     private func setupViews() {
-        //setupButtonsStackViewTest()
-        //setupButtonsStackView()
+        setupInitialsContainerView()
+        setupSeparatorView()
+        setupNameLabel()
+        setupUsernameLabel()
+        setupEmailLabel()
+        setupPhoneLabel()
         setupButtonsStackView()
-        //setupSeparatorView()
-//        setupSeparatorView()
-//        setupNameLabel()
-//        setupUsernameLabel()
-//        setupEmailLabel()
-//        setupPhoneLabel()
-//        setupButtonsStackView()
     }
-    
-    private func setupButtonsStackView() {
-        self.contentView.addSubview(buttonsStackView)
-        NSLayoutConstraint.activate([
-            buttonsStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
-            buttonsStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
-            buttonsStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8)
-        ])
-    }
-    
-    private func setupSeparatorView() {
-        self.contentView.addSubview(separatorView)
-        NSLayoutConstraint.activate([
-            separatorView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
-            separatorView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-            separatorView.widthAnchor.constraint(equalToConstant: 2)
-        ])
-    }
-    
+
     private func setupInitialsContainerView() {
         self.contentView.addSubview(initialsContainerView)
         NSLayoutConstraint.activate([
             initialsContainerView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
             initialsContainerView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
-            initialsContainerView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16),
             initialsContainerView.heightAnchor.constraint(equalToConstant: 88),
             initialsContainerView.widthAnchor.constraint(equalToConstant: 88)
         ])
         setupInitialsLabel(on: initialsContainerView)
     }
-    
+
     private func setupInitialsLabel(on view: UIView) {
-        let initialsLabel = makeGenericUILabelView()
         initialsContainerView.addSubview(initialsLabel)
         NSLayoutConstraint.activate([
             initialsLabel.topAnchor.constraint(equalTo: initialsContainerView.topAnchor),
             initialsLabel.leadingAnchor.constraint(equalTo: initialsContainerView.leadingAnchor),
             initialsLabel.trailingAnchor.constraint(equalTo: initialsContainerView.trailingAnchor),
             initialsLabel.bottomAnchor.constraint(equalTo: initialsContainerView.bottomAnchor)
+        ])
+    }
+
+    private func setupSeparatorView() {
+        self.contentView.addSubview(separatorView)
+        NSLayoutConstraint.activate([
+            separatorView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
+            separatorView.leadingAnchor.constraint(equalTo: initialsContainerView.trailingAnchor, constant: 32),
+            separatorView.widthAnchor.constraint(equalToConstant: 2)
         ])
     }
 
@@ -167,7 +153,7 @@ extension UserTableViewCell {
             nameLabel.trailingAnchor.constraint(equalTo: separatorView.leadingAnchor, constant: -32)
         ])
     }
-    
+
     private func setupUsernameLabel() {
         self.contentView.addSubview(userNameLabel)
         NSLayoutConstraint.activate([
@@ -176,7 +162,7 @@ extension UserTableViewCell {
             userNameLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
         ])
     }
-    
+
     private func setupEmailLabel() {
         self.contentView.addSubview(emailLabel)
         NSLayoutConstraint.activate([
@@ -185,7 +171,7 @@ extension UserTableViewCell {
             emailLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
         ])
     }
-    
+
     private func setupPhoneLabel() {
         self.contentView.addSubview(phoneLabel)
         NSLayoutConstraint.activate([
@@ -194,104 +180,15 @@ extension UserTableViewCell {
             phoneLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
         ])
     }
+
+    private func setupButtonsStackView() {
+        self.contentView.addSubview(buttonsStackView)
+        NSLayoutConstraint.activate([
+            buttonsStackView.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 24),
+            buttonsStackView.topAnchor.constraint(equalTo: phoneLabel.bottomAnchor, constant: 64),
+            buttonsStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
+            buttonsStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
+            buttonsStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8)
+        ])
+    }
 }
-
-
-//extension UserTableViewCell {
-//    private func setupViews() {
-//        setupButtonsStackViewTest()
-//        //setupInitialsContainerView()
-////        setupSeparatorView()
-////        setupNameLabel()
-////        setupUsernameLabel()
-////        setupEmailLabel()
-////        setupPhoneLabel()
-////        setupButtonsStackView()
-//    }
-//
-//    private func setupInitialsContainerView() {
-//        self.contentView.addSubview(initialsContainerView)
-//        NSLayoutConstraint.activate([
-//            initialsContainerView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
-//            initialsContainerView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
-//            initialsContainerView.heightAnchor.constraint(equalToConstant: 88),
-//            initialsContainerView.widthAnchor.constraint(equalToConstant: 88)
-//        ])
-//        setupInitialsLabel(on: initialsContainerView)
-//    }
-//
-//    private func setupInitialsLabel(on view: UIView) {
-//        let initialsLabel = makeGenericUILabelView()
-//        initialsContainerView.addSubview(initialsLabel)
-//        NSLayoutConstraint.activate([
-//            initialsLabel.topAnchor.constraint(equalTo: initialsContainerView.topAnchor),
-//            initialsLabel.leadingAnchor.constraint(equalTo: initialsContainerView.leadingAnchor),
-//            initialsLabel.trailingAnchor.constraint(equalTo: initialsContainerView.trailingAnchor),
-//            initialsLabel.bottomAnchor.constraint(equalTo: initialsContainerView.bottomAnchor)
-//        ])
-//    }
-//
-//    private func setupSeparatorView() {
-//        self.contentView.addSubview(separatorView)
-//        NSLayoutConstraint.activate([
-//            separatorView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
-//            separatorView.leadingAnchor.constraint(equalTo: initialsContainerView.leadingAnchor, constant: 32),
-//        ])
-//    }
-//
-//    private func setupNameLabel() {
-//        self.contentView.addSubview(nameLabel)
-//        NSLayoutConstraint.activate([
-//            nameLabel.topAnchor.constraint(equalTo: initialsContainerView.bottomAnchor, constant: 16),
-//            nameLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
-//            nameLabel.trailingAnchor.constraint(equalTo: separatorView.leadingAnchor, constant: -32)
-//        ])
-//    }
-//
-//    private func setupUsernameLabel() {
-//        self.contentView.addSubview(userNameLabel)
-//        NSLayoutConstraint.activate([
-//            userNameLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
-//            userNameLabel.leadingAnchor.constraint(equalTo: separatorView.trailingAnchor, constant: 16),
-//            userNameLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
-//        ])
-//    }
-//
-//    private func setupEmailLabel() {
-//        self.contentView.addSubview(emailLabel)
-//        NSLayoutConstraint.activate([
-//            emailLabel.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: 24),
-//            emailLabel.leadingAnchor.constraint(equalTo: separatorView.trailingAnchor, constant: 16),
-//            emailLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
-//        ])
-//    }
-//
-//    private func setupPhoneLabel() {
-//        self.contentView.addSubview(phoneLabel)
-//        NSLayoutConstraint.activate([
-//            phoneLabel.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 24),
-//            phoneLabel.leadingAnchor.constraint(equalTo: separatorView.trailingAnchor, constant: 16),
-//            phoneLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
-//        ])
-//    }
-//
-//    private func setupButtonsStackView() {
-//        self.contentView.addSubview(buttonsStackView)
-//        NSLayoutConstraint.activate([
-//            buttonsStackView.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 24),
-//            buttonsStackView.topAnchor.constraint(equalTo: phoneLabel.bottomAnchor, constant: 64),
-//            buttonsStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
-//            buttonsStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
-//            buttonsStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8)
-//        ])
-//    }
-//
-//    private func setupButtonsStackViewTest() {
-//        self.contentView.addSubview(buttonsStackView)
-//        NSLayoutConstraint.activate([
-//            buttonsStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
-//            buttonsStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
-//            buttonsStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8)
-//        ])
-//    }
-//}

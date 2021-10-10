@@ -10,3 +10,13 @@ struct Comment: Codable {
         case id, postId, name, body
     }
 }
+
+extension Comment: TitleAndDescriptionCellDisplayable {
+    var title: String {
+        self.name
+    }
+    
+    var description: String {
+        self.body
+    }
+}

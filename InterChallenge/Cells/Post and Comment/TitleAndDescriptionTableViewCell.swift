@@ -28,9 +28,10 @@ class TitleAndDescriptionTableViewCell: UITableViewCell {
         fatalError("this view does not support Sotryboard!")
     }
     
-    func setDataFrom(model: TitleAndDescriptionCellDisplayable) {
+    func setDataFrom(model: TitleAndDescriptionCellDisplayable, andStyle style: UITableViewCell.SelectionStyle = .blue) {
         titleLabel.text = model.title
         descriptionLabel.text = model.description
+        self.selectionStyle = style
     }
 }
 
