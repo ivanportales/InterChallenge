@@ -76,7 +76,7 @@ class UserTableViewCell: UITableViewCell {
         fatalError("This view does not support Storyboard!")
     }
     
-    func setDataFrom(user: User) {
+    func setDataOf(user: User) {
         self.selectionStyle = .none
         self.user = user
         self.id = user.id
@@ -102,34 +102,7 @@ class UserTableViewCell: UITableViewCell {
     }
 }
 
-extension UserTableViewCell {
-    private func makeGenericUIViewWith(backgroundColor: UIColor) -> UIView {
-        let newView = UIView()
-        newView.backgroundColor = backgroundColor
-        //newView.isOpaque = true
-        newView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return newView
-    }
-    
-    private func makeGenericUILabelView() -> UILabel {
-        let labelView = UILabel()
-        labelView.font = .systemFont(ofSize: 17)
-        labelView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return labelView
-    }
-    
-    private func makeStackButtonWith(title: String, andSelector selector: Selector) -> UIButton {
-        let buttonView = UIButton()
-        buttonView.addTarget(self, action: selector, for: .touchUpInside)
-        buttonView.setTitle(title, for: .normal)
-        buttonView.setTitleColor(.systemOrange, for: .normal)
-        buttonView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return buttonView
-    }
-}
+
 
 extension UserTableViewCell {
     private func setupViews() {

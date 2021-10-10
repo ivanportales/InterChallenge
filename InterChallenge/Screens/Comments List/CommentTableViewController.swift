@@ -51,8 +51,7 @@ extension CommentTableViewController {
     }
     
     private func setupTabtleView() {
-        tableView.register(UINib(nibName: "TitleAndDescriptionTableViewCell", bundle: nil),
-                           forCellReuseIdentifier: TitleAndDescriptionTableViewCell.cellIdentifier)
+        tableView.register(TitleAndDescriptionTableViewCell.self, forCellReuseIdentifier: TitleAndDescriptionTableViewCell.cellIdentifier)
     }
     private func setupBindings() {
         viewModel

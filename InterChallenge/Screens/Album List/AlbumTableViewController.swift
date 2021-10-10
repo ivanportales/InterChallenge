@@ -54,7 +54,7 @@ extension AlbumTableViewController {
     }
     
     private func setupTabtleView() {
-        tableView.register(UINib(nibName: "AlbumTableViewCell", bundle: nil), forCellReuseIdentifier: AlbumTableViewCell.cellIdentifier)
+        tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: AlbumTableViewCell.cellIdentifier)
     }
     
     private func setupBindings() {

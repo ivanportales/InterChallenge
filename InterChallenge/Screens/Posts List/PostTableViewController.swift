@@ -36,8 +36,7 @@ extension PostTableViewController {
         }
 
         let post = viewModel.posts[indexPath.row]
-        cell.titleLabel.text = post.title
-        cell.descriptionLabel.text = post.body
+        cell.setDataFrom(model: post)
 
         return cell
     }
@@ -55,8 +54,7 @@ extension PostTableViewController {
     }
     
     private func setupTableView() {
-        tableView.register(UINib(nibName: "TitleAndDescriptionTableViewCell", bundle: nil),
-                           forCellReuseIdentifier: TitleAndDescriptionTableViewCell.cellIdentifier)
+        tableView.register(TitleAndDescriptionTableViewCell.self, forCellReuseIdentifier: TitleAndDescriptionTableViewCell.cellIdentifier)
     }
     
     private func setupBindings() {

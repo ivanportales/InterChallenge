@@ -4,11 +4,8 @@ class PhotoTableViewCell: UITableViewCell {
     static let cellIdentifier = "PhotoCell"
     
     lazy var titleLabel: UILabel = {
-        let labelView = UILabel()
-        labelView.font = .systemFont(ofSize: 17)
+        let labelView = makeGenericUILabelView(lines: 5)
         labelView.numberOfLines = 0
-        labelView.translatesAutoresizingMaskIntoConstraints = false
-        
         return labelView
     }()
     
@@ -27,20 +24,11 @@ class PhotoTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("this view does not support Storyboard!")
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
 }
 
 extension PhotoTableViewCell {
     private func setupImageView() {
         self.contentView.addSubview(photoImageView)
-        
         NSLayoutConstraint.activate([
             photoImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
             photoImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
@@ -53,7 +41,6 @@ extension PhotoTableViewCell {
     
     private func setTitleLabelView() {
         self.contentView.addSubview(titleLabel)
-        
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 60),
             titleLabel.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 16),

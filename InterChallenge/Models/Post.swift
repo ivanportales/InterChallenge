@@ -10,3 +10,9 @@ struct Post: Codable {
         case id, userId, title, body
     }
 }
+
+extension Post: TitleAndDescriptionCellDisplayable {
+    var description: String {
+        self.body
+    }
+}
