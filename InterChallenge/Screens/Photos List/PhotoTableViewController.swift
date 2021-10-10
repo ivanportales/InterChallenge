@@ -37,6 +37,7 @@ extension PhotoTableViewController {
             return UITableViewCell()
         }
 
+    // criar uma view model pra cada e fazer com que todas tenham a mesma repo como referencia, a repo da VM dessa tela
         let photo = viewModel.photos[indexPath.row]
         cell.titleLabel.text = photo.title
         
@@ -84,7 +85,7 @@ extension PhotoTableViewController {
     }
     
     private func setupTableView() {
-        tableView.register(UINib(nibName: "PhotoTableViewCell", bundle: nil), forCellReuseIdentifier: PhotoTableViewCell.cellIdentifier)
+        tableView.register(PhotoTableViewCell.self, forCellReuseIdentifier: PhotoTableViewCell.cellIdentifier)
     }
     
     private func setupBindings() {

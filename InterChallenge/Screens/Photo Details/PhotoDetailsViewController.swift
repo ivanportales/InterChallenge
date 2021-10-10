@@ -16,8 +16,8 @@ class PhotoDetailsViewController: UIViewController {
         return newView
     }()
     
-    let image: UIImage
-    let photo: Photo
+    private let image: UIImage
+    private let photo: Photo
     
     init(image: UIImage, photo: Photo) {
         self.image = image
@@ -40,6 +40,15 @@ class PhotoDetailsViewController: UIViewController {
 
 // MARK: - Private helper functions
 extension PhotoDetailsViewController {
+    private func setLabelView() {
+        self.view.addSubview(nameLabel)
+        NSLayoutConstraint.activate([
+            nameLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
+            nameLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24),
+        ])
+        nameLabel.text = photo.title
+    }
+    
     private func setImageView() {
         self.view.addSubview(detailImageView)
         NSLayoutConstraint.activate([
@@ -50,14 +59,5 @@ extension PhotoDetailsViewController {
             detailImageView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: -16)
         ])
         detailImageView.image = image
-    }
-    
-    private func setLabelView() {
-        self.view.addSubview(nameLabel)
-        NSLayoutConstraint.activate([
-            nameLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 24),
-            nameLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -24),
-        ])
-        nameLabel.text = photo.title
     }
 }

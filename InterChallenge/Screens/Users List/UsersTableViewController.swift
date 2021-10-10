@@ -46,7 +46,7 @@ extension UsersTableViewController {
 // MARK: - Private helper functions
 extension UsersTableViewController {
     private func setupTableView() {
-        tableView.register(UINib(nibName: "UserTableViewCell", bundle: nil), forCellReuseIdentifier: UserTableViewCell.cellIdentifier)
+        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: UserTableViewCell.cellIdentifier)
     }
     
     private func setBindings() {
