@@ -8,10 +8,12 @@
 import Foundation
 import Alamofire
 
+// MARK: - Protocol declaration of CommentRepository
 protocol CommentRepository {
     func getCommentsFrom(postId: Int, completion: @escaping (Result<[Comment], RepositoryError>) -> ())
 }
 
+// MARK: - Concrete implementation of CommentRepository
 class WebCommentRepository: CommentRepository {
     func getCommentsFrom(postId: Int, completion: @escaping (Result<[Comment], RepositoryError>) -> ()) {
         AF.request("https://jsonplaceholder.typicode.com/comments?postId=\(postId)")

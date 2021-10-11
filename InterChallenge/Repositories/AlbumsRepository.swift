@@ -8,10 +8,12 @@
 import Foundation
 import Alamofire
 
+// MARK: - Protocol declaration of AlbumsRepository
 protocol AlbumsRepository {
     func getAlbumsOf(userId: Int, completion: @escaping (Result<[Album], RepositoryError>) -> ())
 }
 
+// MARK: - Concrete implementation of AlbumsRepository
 class WebAlbumsRepository: AlbumsRepository {
     func getAlbumsOf(userId: Int, completion: @escaping (Result<[Album], RepositoryError>) -> ()) {
         AF.request("https://jsonplaceholder.typicode.com/albums?userId=\(userId)")

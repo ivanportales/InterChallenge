@@ -8,10 +8,12 @@
 import Foundation
 import Alamofire
 
+// MARK: - Protocol declaration of PostRepository
 protocol PostRepository {
     func getPostsFrom(userId: Int, completion: @escaping (Result<[Post], RepositoryError>) -> ())
 }
 
+// MARK: - Concrete implementation of PostRepository
 class WebPostsRepository: PostRepository {
     func getPostsFrom(userId: Int, completion: @escaping (Result<[Post], RepositoryError>) -> ()) {
         AF.request("https://jsonplaceholder.typicode.com/posts?userId=\(userId)")

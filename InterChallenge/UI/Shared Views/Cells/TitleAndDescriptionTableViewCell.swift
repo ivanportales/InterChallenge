@@ -1,11 +1,5 @@
 import UIKit
 
-// MARK: - Definition of protocol to objects who will be displayed by this cell
-protocol TitleAndDescriptionCellDisplayable {
-    var title: String { get }
-    var description: String { get }
-}
-
 class TitleAndDescriptionTableViewCell: UITableViewCell {
     static let cellIdentifier = "TitleAndDescriptionCell"
     
@@ -57,4 +51,10 @@ extension TitleAndDescriptionTableViewCell {
             descriptionLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16)
         ])
     }
+}
+
+// MARK: - Definition of protocol to objects who will be displayed by this cell
+protocol TitleAndDescriptionCellDisplayable {
+    var title: String { get }
+    var description: String { get }
 }

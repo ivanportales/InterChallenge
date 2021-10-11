@@ -7,11 +7,13 @@
 
 import Foundation
 
+// MARK: - Protocol declaration of PhotosRepositoryDecorator
 protocol PhotosRepositoryDecorator: PhotosRepository {
     var cache: ImageCache { get }
     var defaultRepo: PhotosRepository { get }
 }
 
+// MARK: - Concrete implementation of PhotosRepositoryCacheDecorator
 class PhotosRepositoryCacheDecorator: PhotosRepositoryDecorator {
     let cache: ImageCache
     let defaultRepo: PhotosRepository

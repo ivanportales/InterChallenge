@@ -8,11 +8,13 @@
 import Foundation
 import Alamofire
 
+// MARK: - Protocol declaration of PhotosRepository
 protocol PhotosRepository: AnyObject {
     func getPhotosFrom(albumId: Int, completion: @escaping (Result<[Photo], RepositoryError>) -> ())
     func getImageDataOf(stringUrl: String, completion: @escaping (Result<Data, RepositoryError>) -> ())
 }
 
+// MARK: - Concrete implementation of WebPhotoRepository
 class WebPhotoRepository: PhotosRepository {
     func getImageDataOf(stringUrl: String, completion: @escaping (Result<Data, RepositoryError>) -> ()) {
         AF.download(stringUrl)

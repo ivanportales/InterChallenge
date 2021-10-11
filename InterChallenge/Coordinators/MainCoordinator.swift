@@ -25,6 +25,7 @@ class MainCoordinator: Coordinator {
     }
 }
 
+// MARK: - Extensions to each screen transition on app
 extension MainCoordinator {
     func showAlbumsOf(user: User) {
         let destinationVC = mainFactory.makeAlbumsTableViewControllerWith(user: user, and: self)

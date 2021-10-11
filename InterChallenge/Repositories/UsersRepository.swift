@@ -8,15 +8,18 @@
 import Foundation
 import Alamofire
 
+// MARK: - Protocol declaration of UsersRepository
 protocol UsersRepository {
     func getUsers(completion: @escaping (Result<[User], RepositoryError>) -> ())
 }
 
+// MARK: - Enum to errors that might occur during api calls
 enum RepositoryError: Error {
     case responseError
     case serializationError
 }
 
+// MARK: - Concrete implementation of UsersRepository
 class WebUserRepository: UsersRepository {
     func getUsers(completion: @escaping (Result<[User], RepositoryError>) -> ()) {
         AF.request("https://jsonplaceholder.typicode.com/users")

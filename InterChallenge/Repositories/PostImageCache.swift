@@ -7,11 +7,13 @@
 
 import Foundation
 
+// MARK: - Protocol declaration of ImageCache
 protocol ImageCache {
     func getImageData(withKey key: String) -> Data?
     func saveImage(data: Data, withKey key: String)
 }
 
+// MARK: - Concrete implementation of PhotoImageCache
 class PhotoImageCache: ImageCache {
     private var cache = NSCache<NSString,NSData>()
     

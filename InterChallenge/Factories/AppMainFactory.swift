@@ -8,12 +8,14 @@
 import Foundation
 import UIKit.UIViewController
 
+// MARK: - Declaration of the app factory
 class AppMainFactory {
     func makeMainCoordinatorWith(navigationController: UINavigationController) -> MainCoordinator {
         MainCoordinator(navigationController: navigationController, mainFactory: self)
     }
 }
 
+// MARK: - Factory extensions to each ViewController
 extension AppMainFactory {
     func makeUsersTableViewControllerWith(coordinator: MainCoordinator) -> UIViewController {
         let viewModel = UsersTableViewModel(repository: WebUserRepository(), coordinator: coordinator)

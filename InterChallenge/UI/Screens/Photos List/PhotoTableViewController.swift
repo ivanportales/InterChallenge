@@ -1,5 +1,4 @@
 import Combine
-import Alamofire
 import UIKit
 
 class PhotoTableViewController: UITableViewController {
