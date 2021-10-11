@@ -14,6 +14,8 @@ class PhotoTableCellViewModel {
     
     // MARK: - Private properties
     private weak var repository: PhotosRepository?
+    
+    // MARK: - Exposed properties
     let photo: Photo
     
     init(photo: Photo, repository: PhotosRepository) {
@@ -23,7 +25,6 @@ class PhotoTableCellViewModel {
 
     func getPhotoImsgeThumbnailurl() {
         guard let repository = repository else { return }
-        self.image.imageUrl = self.photo.thumbnailUrl
         repository.getImageDataOf(stringUrl: photo.thumbnailUrl) { [weak self] result in
             guard let self = self else { return }
             switch result {

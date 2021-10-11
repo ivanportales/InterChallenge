@@ -1,16 +1,15 @@
 import UIKit
 import Combine
 
-class UIImageWithUrl: UIImage {
-    var imageUrl = ""
-}
-
 class PhotoTableViewCell: UITableViewCell {
     static let cellIdentifier = "PhotoCell"
-    var viewModel: PhotoTableCellViewModel?
-    var subscribers = Set<AnyCancellable>()
+    
+    // MARK: - Private properties
+    private var viewModel: PhotoTableCellViewModel?
+    private var subscribers = Set<AnyCancellable>()
     private var photoURl: String = ""
     
+    // MARK: - Private properties
     lazy var titleLabel: UILabel = {
         let labelView = makeGenericUILabelView(lines: 5)
         labelView.numberOfLines = 0
@@ -29,19 +28,19 @@ class PhotoTableViewCell: UITableViewCell {
         setTitleLabelView()
     }
     
-    func setDataWith(viewModel: PhotoTableCellViewModel?) {
-        self.viewModel = viewModel
-        //self.photoURl = (viewModel?.photo.url)!
-        titleLabel.text = viewModel?.photo.title
-        setupBindings()
-        viewModel?.getPhotoImsgeThumbnailurl()
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("this view does not support Storyboard!")
     }
     
+    func setDataWith(viewModel: PhotoTableCellViewModel?) {
+        self.viewModel = viewModel
+        titleLabel.text = viewModel?.photo.title
+        setupBindings()
+        viewModel?.getPhotoImsgeThumbnailurl()
+    }
 }
+
+// MARK: - Private helper functions
 extension PhotoTableViewCell {
     private func setupBindings() {
         viewModel?
@@ -56,6 +55,7 @@ extension PhotoTableViewCell {
     }
 }
 
+// MARK: - Private views setup functions
 extension PhotoTableViewCell {
     private func setupImageView() {
         self.contentView.addSubview(photoImageView)
@@ -80,4 +80,7 @@ extension PhotoTableViewCell {
     }
 }
 
-
+// MARK: - Helper class to help put the right image on cell
+class UIImageWithUrl: UIImage {
+    var imageUrl = ""
+}

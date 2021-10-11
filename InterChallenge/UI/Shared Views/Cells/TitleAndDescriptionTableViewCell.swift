@@ -1,5 +1,6 @@
 import UIKit
 
+// MARK: - Definition of protocol to objects who will be displayed by this cell
 protocol TitleAndDescriptionCellDisplayable {
     var title: String { get }
     var description: String { get }
@@ -8,6 +9,7 @@ protocol TitleAndDescriptionCellDisplayable {
 class TitleAndDescriptionTableViewCell: UITableViewCell {
     static let cellIdentifier = "TitleAndDescriptionCell"
     
+    // MARK: - Declaration of views
     lazy var titleLabel: UILabel = {
         let labelView = makeGenericUILabelView(withFontSize: 21, lines: 2)
         return labelView
@@ -28,13 +30,14 @@ class TitleAndDescriptionTableViewCell: UITableViewCell {
         fatalError("this view does not support Sotryboard!")
     }
     
-    func setDataFrom(model: TitleAndDescriptionCellDisplayable, andStyle style: UITableViewCell.SelectionStyle = .blue) {
+    func setDataOf(model: TitleAndDescriptionCellDisplayable, andStyle style: UITableViewCell.SelectionStyle = .blue) {
         titleLabel.text = model.title
         descriptionLabel.text = model.description
         self.selectionStyle = style
     }
 }
 
+// MARK: - Private views setup functions
 extension TitleAndDescriptionTableViewCell {
     private func setupTitleLabel() {
         self.contentView.addSubview(titleLabel)

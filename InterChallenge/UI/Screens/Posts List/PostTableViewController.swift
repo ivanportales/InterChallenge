@@ -37,7 +37,7 @@ extension PostTableViewController {
         }
 
         let post = viewModel.posts[indexPath.row]
-        cell.setDataFrom(model: post)
+        cell.setDataOf(model: post)
 
         return cell
     }

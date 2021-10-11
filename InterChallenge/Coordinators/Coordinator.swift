@@ -10,7 +10,6 @@ import UIKit.UINavigationController
 
 // MARK: - Coordinator protocol
 protocol Coordinator {
-    var childCoordinators: [Coordinator] { get set }
     var navigationController: UINavigationController { get set }
     
     func start()

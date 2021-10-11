@@ -50,7 +50,10 @@ extension PhotoDetailsViewController {
     private func setViewControllerView() {
         self.view.backgroundColor = .white
     }
-    
+}
+
+// MARK: - Private views setup functions
+extension PhotoDetailsViewController {
     private func setLabelView() {
         self.view.addSubview(nameLabel)
         NSLayoutConstraint.activate([

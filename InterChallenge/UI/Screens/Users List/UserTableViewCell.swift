@@ -8,6 +8,7 @@ protocol UserTableViewCellDelegate: AnyObject {
 class UserTableViewCell: UITableViewCell {
     static let cellIdentifier = "UserCell"
     
+    // MARK: - Declaration of views
     private lazy var separatorView: UIView  = {
         var newView = makeGenericUIViewWith(backgroundColor: .lightGray)
         return newView
@@ -65,9 +66,11 @@ class UserTableViewCell: UITableViewCell {
         return stackView
     }()
     
+    // MARK: - Private propertires
+    private var user: User!
+    
+    // MARK: - Delegate propertires
     weak var delegate: UserTableViewCellDelegate?
-    var user: User!
-    var id: Int = 0
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -78,16 +81,15 @@ class UserTableViewCell: UITableViewCell {
         fatalError("This view does not support Storyboard!")
     }
     
-    func setDataOf(user: User) {
+    func setDataOf(user: User, andBackgroundColor color: UIColor) {
         self.selectionStyle = .none
         self.user = user
-        self.id = user.id
         self.initialsLabel.text = String(user.name.prefix(2))
         self.nameLabel.text = user.name
         self.userNameLabel.text = user.username
         self.emailLabel.text = user.email
         self.phoneLabel.text = user.phone
-        //self.contentView.backgroundColor = indexPath.row % 2 == 0 ? .white : UIColor(white: 0.667, alpha: 0.2)
+        self.contentView.backgroundColor = color
     }
 
     @objc private func albumsAction() {
@@ -103,6 +105,7 @@ class UserTableViewCell: UITableViewCell {
     }
 }
 
+// MARK: - Private views setup functions
 extension UserTableViewCell {
     private func setupViews() {
         setupInitialsContainerView()

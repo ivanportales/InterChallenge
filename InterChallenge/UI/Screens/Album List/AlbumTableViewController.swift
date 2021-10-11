@@ -37,7 +37,7 @@ extension AlbumTableViewController {
         }
 
         let album = viewModel.albums[indexPath.row]
-        cell.albumNameLabel.text = album.title
+        cell.setDataOf(album: album)
 
         return cell
     }

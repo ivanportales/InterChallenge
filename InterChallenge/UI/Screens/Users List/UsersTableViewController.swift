@@ -37,9 +37,8 @@ extension UsersTableViewController {
         }
         
         let user = viewModel.users[indexPath.item]
-        cell.setDataOf(user: user)
+        cell.setDataOf(user: user, andBackgroundColor: indexPath.row % 2 == 0 ? .white : UIColor(white: 0.667, alpha: 0.2))
         cell.delegate = self
-        cell.contentView.backgroundColor = indexPath.row % 2 == 0 ? .white : UIColor(white: 0.667, alpha: 0.2)
         
         return cell
     }

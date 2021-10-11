@@ -16,9 +16,11 @@ class PhotoTableViewModel: ObservableObject {
     
     // MARK: - Private properties
     private let coordinator: MainCoordinator
-    let repository: PhotosRepository
     private let user: User
     private let album: Album
+    
+    // MARK: - Exposed properties
+    let repository: PhotosRepository
     
     init(user: User, album: Album, repository: PhotosRepository, coordinator: MainCoordinator) {
         self.repository = repository

@@ -11,55 +11,51 @@ import UIKit.UINavigationController
 // MARK: - Concrete implementation of coordinator to controll the floww of the app
 class MainCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
+    var mainFactory: AppMainFactory
     var navigationController: UINavigationController
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, mainFactory: AppMainFactory) {
         self.navigationController = navigationController
+        self.mainFactory = mainFactory
     }
     
     func start() {
-        let viewModel = UsersTableViewModel(repository: WebUserRepository(), coordinator: self)
-        let firstVC = UsersTableViewController(viewModel: viewModel)
+        let firstVC = mainFactory.makeUsersTableViewControllerWith(coordinator: self)
         navigationController.pushViewController(firstVC, animated: false)
     }
 }
 
 extension MainCoordinator {
     func showAlbumsOf(user: User) {
-        let viewModel = AlbumTableViewModel(user: user, repository: WebAlbumsRepository(), coordinator: self)
-        let destinationVC = AlbumTableViewController(viewModel: viewModel)
+        let destinationVC = mainFactory.makeAlbumsTableViewControllerWith(user: user, and: self)
         navigationController.pushViewController(destinationVC, animated: true)
     }
 }
 
 extension MainCoordinator {
     func showPostsOf(user: User) {
-        let viewModel = PostsTableViewModel(user: user, repository: WebPostsRepository(), coordinator: self)
-        let destinationVC = PostTableViewController(viewModel: viewModel)
+        let destinationVC = mainFactory.makePostsTableViewControllerWith(user: user, and: self)
         navigationController.pushViewController(destinationVC, animated: true)
     }
 }
 
 extension MainCoordinator {
     func showCommentsIn(post: Post, ofUser user: User) {
-        let viewModel = CommentTableViewModel(user: user, post: post, repository: WebCommentRepository())
-        let destinationVC = CommentTableViewController(viewModel: viewModel)
+        let destinationVC = mainFactory.makeCommentTableViewControllerWith(post: post, ofUser: user, and: self)
         navigationController.pushViewController(destinationVC, animated: true)
     }
 }
 
 extension MainCoordinator {
     func showPhotosIn(album: Album, ofUser user: User) {
-        let repository = PhotosRepositoryCacheDecorator(cache: PhotoImageCache(), repository:  WebPhotoRepository())
-        let viewModel = PhotoTableViewModel(user: user, album: album, repository: repository, coordinator: self)
-        let destinationVC = PhotoTableViewController(viewModel: viewModel)
+        let destinationVC = mainFactory.makePhotosTableViewControllerWith(album: album, ofUser: user, and: self)
         navigationController.pushViewController(destinationVC, animated: true)
     }
 }
 
 extension MainCoordinator {
     func showDetailsOf(photo: Photo, showingImage image: UIImage) {
-        let destinationVC = PhotoDetailsViewController(image: image, photo: photo)
+        let destinationVC = mainFactory.makePhotoDetailViewController(photo: photo, showingImage: image)
         navigationController.pushViewController(destinationVC, animated: true)
     }
 }

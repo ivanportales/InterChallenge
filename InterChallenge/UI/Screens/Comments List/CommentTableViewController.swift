@@ -37,8 +37,7 @@ extension CommentTableViewController {
          }
 
         let comment = viewModel.comments[indexPath.row]
-        //cell.selectionStyle = .none
-        cell.setDataFrom(model: comment, andStyle: .none)
+        cell.setDataOf(model: comment, andStyle: .none)
 
          return cell
      }

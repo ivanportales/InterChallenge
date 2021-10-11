@@ -2,7 +2,9 @@ import UIKit
 
 class AlbumTableViewCell: UITableViewCell {
     static let cellIdentifier = "AlbumCell"
-    lazy var albumNameLabel: UILabel = {
+    
+    // MARK: - Declaration of views
+    private lazy var albumNameLabel: UILabel = {
         let labelView = makeGenericUILabelView(lines: 0)
         return labelView
     }()
@@ -21,6 +23,7 @@ class AlbumTableViewCell: UITableViewCell {
     }
 }
 
+// MARK: - Private views setup functions
 extension AlbumTableViewCell {
     private func setupAlbumNameLabel() {
         self.contentView.addSubview(albumNameLabel)

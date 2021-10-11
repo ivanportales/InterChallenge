@@ -13,7 +13,6 @@ protocol UsersRepository {
 }
 
 enum RepositoryError: Error {
-    case networkError
     case responseError
     case serializationError
 }
