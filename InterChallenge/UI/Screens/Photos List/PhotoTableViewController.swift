@@ -6,6 +6,7 @@ class PhotoTableViewController: UITableViewController {
     // MARK: - Private properties
     private let viewModel: PhotoTableViewModel
     private var subscribers = Set<AnyCancellable>()
+    private var cellsViewMdodels = [PhotoTableCellViewModel?]()
     
     init(viewModel: PhotoTableViewModel) {
         self.viewModel = viewModel
@@ -26,7 +27,6 @@ class PhotoTableViewController: UITableViewController {
     }
 }
 
-// tem que criar um repo ou service pra pegar as imagens e cachear na memória RAM
 // MARK: - Override of table view functions
 extension PhotoTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -37,19 +37,16 @@ extension PhotoTableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PhotoTableViewCell.cellIdentifier, for: indexPath) as? PhotoTableViewCell else {
             return UITableViewCell()
         }
-
-    // criar uma view model pra cada e fazer com que todas tenham a mesma repo como referencia, a repo da VM dessa tela
-        let photo = viewModel.photos[indexPath.row]
-        cell.titleLabel.text = photo.title
         
-        viewModel.getImageFrom(urlString: photo.thumbnailUrl) { result in
-            switch result {
-            case .success(let data):
-                cell.photoImageView.image = UIImage(data: data)
-            default:
-                break
-            }
+        let photo = viewModel.photos[indexPath.row]
+        guard let cellViewModel = cellsViewMdodels[indexPath.row] else {
+            let newCellViewModel = PhotoTableCellViewModel(photo: photo, repository: viewModel.repository)
+            cell.setDataWith(viewModel: newCellViewModel)
+            cellsViewMdodels[indexPath.row] = newCellViewModel
+            return cell
         }
+     
+        cell.setDataWith(viewModel: cellViewModel)
         
         return cell
     }
@@ -84,8 +81,9 @@ extension PhotoTableViewController {
         viewModel
             .$photos
             .receive(on: DispatchQueue.main)
-            .sink {[weak self] _ in
+            .sink {[weak self] items in
                 guard let self = self else { return }
+                self.cellsViewMdodels = [PhotoTableCellViewModel?](repeating: nil, count: items.count)
                 self.tableView.reloadData()
             }.store(in: &subscribers)
     }

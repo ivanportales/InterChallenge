@@ -27,7 +27,7 @@ extension UIView {
         return labelView
     }
     
-    func makeStackButtonWith(title: String, andSelector selector: Selector) -> UIButton {
+    func makeUIButtonViewWith(title: String, andSelector selector: Selector) -> UIButton {
         let buttonView = UIButton()
         buttonView.addTarget(self, action: selector, for: .touchUpInside)
         buttonView.setTitle(title, for: .normal)

@@ -46,12 +46,12 @@ class UserTableViewCell: UITableViewCell {
     }()
     
     private lazy var albunsButtonView: UIButton  = {
-        let buttonView = makeStackButtonWith(title: "ÁLBUNS", andSelector: #selector(albumsAction))
+        let buttonView = makeUIButtonViewWith(title: "ÁLBUNS", andSelector: #selector(albumsAction))
         return buttonView
     }()
     
     private lazy var postsButtonView: UIButton  = {
-        let buttonView = makeStackButtonWith(title: "POSTAGENS", andSelector: #selector(postsAction))
+        let buttonView = makeUIButtonViewWith(title: "POSTAGENS", andSelector: #selector(postsAction))
         return buttonView
     }()
     

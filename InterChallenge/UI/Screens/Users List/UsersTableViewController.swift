@@ -59,9 +59,9 @@ extension UsersTableViewController {
         viewModel
             .$users
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] itens in
+            .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.tableView.reloadData()
+                    self.tableView.reloadData()
             }.store(in: &subscribers)
         
         viewModel

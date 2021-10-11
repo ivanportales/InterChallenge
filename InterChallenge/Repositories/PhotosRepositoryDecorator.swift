@@ -7,29 +7,13 @@
 
 import Foundation
 
-protocol ImageCache {
-    func getImageData(withKey key: String) -> Data?
-    func saveImage(data: Data, withKey key: String)
-}
-
 protocol PhotosRepositoryDecorator: PhotosRepository {
+    var cache: ImageCache { get }
     var defaultRepo: PhotosRepository { get }
 }
 
-class PhotoImageCache: ImageCache {
-    private var cache = NSCache<NSString,NSData>()
-    
-    func getImageData(withKey key: String) -> Data? {
-        return cache.object(forKey: key as NSString) as Data?
-    }
-    
-    func saveImage(data: Data, withKey key: String) {
-        cache.setObject(data as NSData, forKey: key as NSString)
-    }
-}
-
 class PhotosRepositoryCacheDecorator: PhotosRepositoryDecorator {
-    private let cache: ImageCache
+    let cache: ImageCache
     let defaultRepo: PhotosRepository
     
     init(cache: ImageCache, repository: PhotosRepository) {

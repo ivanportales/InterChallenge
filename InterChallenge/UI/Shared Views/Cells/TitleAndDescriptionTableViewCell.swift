@@ -51,7 +51,7 @@ extension TitleAndDescriptionTableViewCell {
             descriptionLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 16),
             descriptionLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
-            descriptionLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8)
+            descriptionLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16)
         ])
     }
 }

@@ -1,7 +1,15 @@
 import UIKit
+import Combine
+
+class UIImageWithUrl: UIImage {
+    var imageUrl = ""
+}
 
 class PhotoTableViewCell: UITableViewCell {
     static let cellIdentifier = "PhotoCell"
+    var viewModel: PhotoTableCellViewModel?
+    var subscribers = Set<AnyCancellable>()
+    private var photoURl: String = ""
     
     lazy var titleLabel: UILabel = {
         let labelView = makeGenericUILabelView(lines: 5)
@@ -21,12 +29,30 @@ class PhotoTableViewCell: UITableViewCell {
         setTitleLabelView()
     }
     
-    func setDataOf(photo: Photo) {
-        
+    func setDataWith(viewModel: PhotoTableCellViewModel?) {
+        self.viewModel = viewModel
+        //self.photoURl = (viewModel?.photo.url)!
+        titleLabel.text = viewModel?.photo.title
+        setupBindings()
+        viewModel?.getPhotoImsgeThumbnailurl()
     }
     
     required init?(coder: NSCoder) {
         fatalError("this view does not support Storyboard!")
+    }
+    
+}
+extension PhotoTableViewCell {
+    private func setupBindings() {
+        viewModel?
+            .$image
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] image in
+                guard let self = self else { return }
+                if image.imageUrl == self.viewModel?.photo.thumbnailUrl {
+                    self.photoImageView.image = image
+                }
+            }).store(in: &subscribers)
     }
 }
 
@@ -53,3 +79,5 @@ extension PhotoTableViewCell {
         ])
     }
 }
+
+

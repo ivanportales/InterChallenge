@@ -16,7 +16,7 @@ class PhotoTableViewModel: ObservableObject {
     
     // MARK: - Private properties
     private let coordinator: MainCoordinator
-    private let repository: PhotosRepository
+    let repository: PhotosRepository
     private let user: User
     private let album: Album
     

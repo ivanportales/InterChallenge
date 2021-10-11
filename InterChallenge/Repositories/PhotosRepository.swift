@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-protocol PhotosRepository {
+protocol PhotosRepository: AnyObject {
     func getPhotosFrom(albumId: Int, completion: @escaping (Result<[Photo], RepositoryError>) -> ())
     func getImageDataOf(stringUrl: String, completion: @escaping (Result<Data, RepositoryError>) -> ())
 }

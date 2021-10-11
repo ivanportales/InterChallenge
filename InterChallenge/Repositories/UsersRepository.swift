@@ -12,7 +12,7 @@ protocol UsersRepository {
     func getUsers(completion: @escaping (Result<[User], RepositoryError>) -> ())
 }
 
-enum RepositoryError : Error {
+enum RepositoryError: Error {
     case networkError
     case responseError
     case serializationError
