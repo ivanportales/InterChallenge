@@ -51,7 +51,7 @@ extension AppMainFactory {
 extension AppMainFactory {
     func makePhotosTableViewControllerWith(album: Album, ofUser user: User, and coordinator: MainCoordinator) -> UIViewController {
         let repository = PhotosRepositoryCacheDecorator(cache: PhotoImageCache(), repository:  WebPhotoRepository())
-        let viewModel = PhotoTableViewModel(user: user, album: album, repository: repository, coordinator: coordinator)
+        let viewModel = PhotoTableViewModel(user: user, album: album, repository: repository, factory: self, coordinator: coordinator)
         let viewController = PhotoTableViewController(viewModel: viewModel)
         return viewController
     }

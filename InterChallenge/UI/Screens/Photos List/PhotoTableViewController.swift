@@ -39,7 +39,7 @@ extension PhotoTableViewController {
         
         let photo = viewModel.photos[indexPath.row]
         guard let cellViewModel = cellsViewMdodels[indexPath.row] else {
-            let newCellViewModel = PhotoTableCellViewModel(photo: photo, repository: viewModel.repository)
+            let newCellViewModel = viewModel.makeTableCellViewModelWith(photo: photo)
             cell.setDataWith(viewModel: newCellViewModel)
             cellsViewMdodels[indexPath.row] = newCellViewModel
             return cell

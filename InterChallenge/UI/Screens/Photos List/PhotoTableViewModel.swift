@@ -18,13 +18,13 @@ class PhotoTableViewModel: ObservableObject {
     private let coordinator: MainCoordinator
     private let user: User
     private let album: Album
-    
-    // MARK: - Exposed properties
-    let repository: PhotosRepository
-    
-    init(user: User, album: Album, repository: PhotosRepository, coordinator: MainCoordinator) {
+    private let repository: PhotosRepository
+    private let factory: PhotosTableViewCellViewModelFactory
+
+    init(user: User, album: Album, repository: PhotosRepository, factory: PhotosTableViewCellViewModelFactory,coordinator: MainCoordinator) {
         self.repository = repository
         self.coordinator = coordinator
+        self.factory = factory
         self.album = album
         self.user = user
     }
@@ -46,6 +46,10 @@ class PhotoTableViewModel: ObservableObject {
     
     func showDetailsOf(photo: Photo, showingImage image: UIImage) {
         coordinator.showDetailsOf(photo: photo, showingImage: image)
+    }
+    
+    func makeTableCellViewModelWith(photo: Photo) -> PhotoTableCellViewModel{
+        self.factory.makeViewModelWith(photo: photo, and: self.repository)
     }
 }
 
