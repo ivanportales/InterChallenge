@@ -9,16 +9,15 @@ import Foundation
 import Combine
 
 class PostsTableViewModel: ObservableObject {
+    // MARK: - Bindings properties
     @Published private(set) var posts = [Post]()
     @Published private(set) var errorMessage: String = ""
+    
+    // MARK: - Private properties
     private let coordinator: MainCoordinator
     private let repository: PostRepository
     private let user: User
-    
-    var navigationBarTitle: String {
-        user.name
-    }
-    
+
     init(user: User, repository: PostRepository, coordinator: MainCoordinator) {
         self.repository = repository
         self.user = user
@@ -39,5 +38,12 @@ class PostsTableViewModel: ObservableObject {
     
     func showCommentsOf(post: Post) {
         coordinator.showCommentsIn(post: post, ofUser: user)
+    }
+}
+
+// MARK: - Computed properties
+extension PostsTableViewModel {
+    var navigationBarTitle: String {
+        "Postagens de \(user.name)"
     }
 }

@@ -8,6 +8,7 @@
 import Foundation
 import UIKit.UINavigationController
 
+// MARK: - Concrete implementation of coordinator to controll the floww of the app
 class MainCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController

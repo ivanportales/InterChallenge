@@ -39,17 +39,17 @@ extension PhotoTableViewCell {
             photoImageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8),
             photoImageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 150),
             photoImageView.widthAnchor.constraint(equalToConstant: 150)
-        
         ])
     }
     
     private func setTitleLabelView() {
         self.contentView.addSubview(titleLabel)
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 60),
+            titleLabel.topAnchor.constraint(greaterThanOrEqualTo: self.contentView.topAnchor, constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
-            titleLabel.bottomAnchor.constraint(lessThanOrEqualTo: self.contentView.bottomAnchor, constant: -16)
+            titleLabel.bottomAnchor.constraint(lessThanOrEqualTo: self.contentView.bottomAnchor, constant: -16),
+            titleLabel.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor)
         ])
     }
 }

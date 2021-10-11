@@ -14,7 +14,7 @@ class UserTableViewCell: UITableViewCell {
     }()
     
     private lazy var initialsContainerView: UIView  = {
-        var newView = makeGenericUIViewWith(backgroundColor: .systemOrange)
+        var newView = makeGenericUIViewWith(backgroundColor: .systemYellow)
         return newView
     }()
     
@@ -87,7 +87,6 @@ class UserTableViewCell: UITableViewCell {
         self.userNameLabel.text = user.username
         self.emailLabel.text = user.email
         self.phoneLabel.text = user.phone
-        
         //self.contentView.backgroundColor = indexPath.row % 2 == 0 ? .white : UIColor(white: 0.667, alpha: 0.2)
     }
 

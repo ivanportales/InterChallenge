@@ -2,6 +2,7 @@ import Combine
 import UIKit
 
 class PhotoDetailsViewController: UIViewController {
+    // MARK: - Declaration of views
     lazy var detailImageView: UIImageView = {
         let newView = UIImageView()
         newView.translatesAutoresizingMaskIntoConstraints = false
@@ -16,6 +17,7 @@ class PhotoDetailsViewController: UIViewController {
         return labelView
     }()
     
+    // MARK: - Private properties
     private let image: UIImage
     private let photo: Photo
     
@@ -42,8 +44,7 @@ class PhotoDetailsViewController: UIViewController {
 // MARK: - Private helper functions
 extension PhotoDetailsViewController {
     private func setNavigationBar() {
-        navigationController?.title = "Detalhes"
-        navigationItem.backButtonTitle = "Back"
+        navigationItem.title = "Detalhes"
     }
     
     private func setViewControllerView() {

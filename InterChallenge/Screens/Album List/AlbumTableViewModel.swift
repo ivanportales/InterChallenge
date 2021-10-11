@@ -8,15 +8,14 @@
 import Foundation
 
 class AlbumTableViewModel: ObservableObject {
+    // MARK: - Bindings properties
     @Published private(set) var albums = [Album]()
     @Published private(set) var errorMessage: String = ""
+    
+    // MARK: - Private properties
     private let coordinator: MainCoordinator
     private let repository: AlbumsRepository
     private let user: User
-    
-    var navigationBarTitle: String {
-        user.name
-    }
     
     init(user: User, repository: AlbumsRepository, coordinator: MainCoordinator) {
         self.repository = repository
@@ -37,5 +36,12 @@ class AlbumTableViewModel: ObservableObject {
     
     func showPhotosIn(album: Album) {
         coordinator.showPhotosIn(album: album, ofUser: user)
+    }
+}
+
+// MARK: - Computed properties
+extension AlbumTableViewModel {
+    var navigationBarTitle: String {
+        "Álbuns de \(user.name)"
     }
 }

@@ -2,6 +2,7 @@ import Combine
 import UIKit
 
 class PostTableViewController: UITableViewController {
+    // MARK: - Private properties
     private let viewModel: PostsTableViewModel
     private var subscribers = Set<AnyCancellable>()
     
@@ -50,7 +51,7 @@ extension PostTableViewController {
 // MARK: - Private helper functions
 extension PostTableViewController {
     private func setupNavigationBar() {
-        navigationItem.title = "Postagens de \(viewModel.navigationBarTitle)"
+        navigationItem.title = viewModel.navigationBarTitle
     }
     
     private func setupTableView() {

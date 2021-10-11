@@ -2,6 +2,7 @@ import Combine
 import UIKit
 
 class AlbumTableViewController: UITableViewController {
+    // MARK: - Private properties
     private let viewModel: AlbumTableViewModel
     private var subscribers = Set<AnyCancellable>()
     
@@ -50,7 +51,7 @@ extension AlbumTableViewController {
 // MARK: - Private helper functions
 extension AlbumTableViewController {
     private func setupNavigationBar() {
-        navigationItem.title = "Álbuns de \(viewModel.navigationBarTitle)"
+        navigationItem.title = viewModel.navigationBarTitle
     }
     
     private func setupTabtleView() {

@@ -2,6 +2,7 @@ import Combine
 import UIKit
 
 class CommentTableViewController: UITableViewController {
+    // MARK: - Private properties
     private let viewModel: CommentTableViewModel
     private var subscribers = Set<AnyCancellable>()
     
@@ -46,7 +47,7 @@ extension CommentTableViewController {
 // MARK: - Private helper functions
 extension CommentTableViewController {
     private func setupNavigationBar() {
-        navigationItem.title = "Comentários de \(viewModel.navigationBarTitle)"
+        navigationItem.title = viewModel.navigationBarTitle
     }
     
     private func setupTabtleView() {

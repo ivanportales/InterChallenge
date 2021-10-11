@@ -8,12 +8,11 @@
 import Foundation
 import UIKit
 
-// MARK: - Helper functions to reduce boilerplate code
+// MARK: - Helper functions to reduce boilerplate of view coding
 extension UIView {
     func makeGenericUIViewWith(backgroundColor: UIColor) -> UIView {
         let newView = UIView()
         newView.backgroundColor = backgroundColor
-        //newView.isOpaque = true
         newView.translatesAutoresizingMaskIntoConstraints = false
         
         return newView

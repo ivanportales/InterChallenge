@@ -9,8 +9,11 @@ import Foundation
 import Combine
 
 class UsersTableViewModel: ObservableObject {
+    // MARK: - Bindings properties
     @Published private(set) var users = [User]()
     @Published private(set) var errorMessage: String = ""
+    
+    // MARK: - Private properties
     private let coordinator: MainCoordinator
     private let repository: UsersRepository
     
@@ -37,5 +40,12 @@ class UsersTableViewModel: ObservableObject {
     
     func didTapPosts(with user: User) {
         coordinator.showPostsOf(user: user)
+    }
+}
+
+// MARK: - Computed properties
+extension UsersTableViewModel {
+    var navigationBarTitle: String {
+        "Desafio"
     }
 }

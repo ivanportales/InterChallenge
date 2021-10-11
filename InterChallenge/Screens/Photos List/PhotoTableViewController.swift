@@ -3,6 +3,7 @@ import Alamofire
 import UIKit
 
 class PhotoTableViewController: UITableViewController {
+    // MARK: - Private properties
     private let viewModel: PhotoTableViewModel
     private var subscribers = Set<AnyCancellable>()
     
@@ -72,7 +73,7 @@ extension PhotoTableViewController {
 // MARK: - Private helper functions
 extension PhotoTableViewController {
     private func setupNavigationBar () {
-        navigationItem.title = "Fotos de \(viewModel.navigationBarTitle)"
+        navigationItem.title = viewModel.navigationBarTitle
     }
     
     private func setupTableView() {

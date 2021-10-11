@@ -10,16 +10,15 @@ import UIKit.UIImage
 import Combine
 
 class PhotoTableViewModel: ObservableObject {
+    // MARK: - Bindings properties
     @Published private(set) var photos = [Photo]()
     @Published private(set) var errorMessage: String = ""
+    
+    // MARK: - Private properties
     private let coordinator: MainCoordinator
     private let repository: PhotosRepository
     private let user: User
     private let album: Album
-    
-    var navigationBarTitle: String {
-        user.name
-    }
     
     init(user: User, album: Album, repository: PhotosRepository, coordinator: MainCoordinator) {
         self.repository = repository
@@ -45,5 +44,12 @@ class PhotoTableViewModel: ObservableObject {
     
     func showDetailsOf(photo: Photo, showingImage image: UIImage) {
         coordinator.showDetailsOf(photo: photo, showingImage: image)
+    }
+}
+
+// MARK: - Computed properties
+extension PhotoTableViewModel {
+    var navigationBarTitle: String {
+        "Fotos de \(user.name)"
     }
 }

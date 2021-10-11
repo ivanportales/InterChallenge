@@ -2,6 +2,7 @@ import Combine
 import UIKit
 
 class UsersTableViewController: UITableViewController {
+    // MARK: - Private properties
     private let viewModel: UsersTableViewModel
     private var subscribers = Set<AnyCancellable>()
     
@@ -17,6 +18,7 @@ class UsersTableViewController: UITableViewController {
     // MARK: - View Controller Life Cycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         setupTableView()
         setBindings()
         viewModel.fillUsers()
@@ -45,6 +47,10 @@ extension UsersTableViewController {
 
 // MARK: - Private helper functions
 extension UsersTableViewController {
+    private func setupNavigationBar() {
+        navigationItem.title = viewModel.navigationBarTitle
+    }
+    
     private func setupTableView() {
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: UserTableViewCell.cellIdentifier)
     }
@@ -70,7 +76,7 @@ extension UsersTableViewController {
     }
 }
 
-// MARK: - Table view cell delegate functions
+// MARK: - UserTableViewCell delegate functions
 extension UsersTableViewController: UserTableViewCellDelegate {
     func didTapAlbums(with user: User) {
         viewModel.didTapAlbums(with: user)

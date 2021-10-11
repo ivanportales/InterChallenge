@@ -9,15 +9,14 @@ import Foundation
 import Combine
 
 class CommentTableViewModel: ObservableObject {
+    // MARK: - Bindings properties
     @Published private(set) var comments = [Comment]()
     @Published private(set) var errorMessage: String = ""
+    
+    // MARK: - Private properties
     private let repository: CommentRepository
     private let user: User
     private let post: Post
-    
-    var navigationBarTitle: String {
-        user.name
-    }
     
     init(user: User, post: Post, repository: CommentRepository) {
         self.repository = repository
@@ -34,5 +33,12 @@ class CommentTableViewModel: ObservableObject {
                 self.comments = fetchedComments
             }
         }
+    }
+}
+
+// MARK: - Computed properties
+extension CommentTableViewModel {
+    var navigationBarTitle: String {
+        "Comentários de \(user.name)"
     }
 }
